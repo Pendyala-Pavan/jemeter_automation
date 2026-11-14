@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JMeter Automation Performance Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#f4f7fb;--ink:#17243a;--muted:#718096;--line:#e6edf5;--blue:#4776e6;--purple:#8064d9;--teal:#16a085;--orange:#e69a45;--red:#df5b68}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif}
+.hero{padding:32px max(24px,calc((100% - 1500px)/2));background:linear-gradient(120deg,#101d3a,#214d83 65%,#3979a8);color:#fff}
+.hero h1{margin:0;font-size:clamp(23px,3vw,32px);letter-spacing:-.5px}
+.hero p{margin:8px 0 0;color:#d7e5f7}
+.hero-meta{margin-top:18px;font-size:12px;color:#c5d6ec}
+main{max-width:1500px;margin:26px auto;padding:0 24px 48px}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}
+.kpi,.panel{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 7px 24px rgba(28,55,90,.055)}
+.kpi{padding:18px 19px;min-height:112px}
+.kpi-label{font-size:11px;font-weight:700;letter-spacing:.8px;color:var(--muted)}
+.kpi-value{font-size:27px;font-weight:750;margin-top:10px;letter-spacing:-.6px}
+.kpi-foot{font-size:12px;color:var(--muted);margin-top:3px}
+.green{color:var(--teal)}.red{color:var(--red)}
+.section-title{display:flex;align-items:center;gap:12px;margin:32px 0 14px;font-size:20px;letter-spacing:-.3px}
+.section-title:after{content:"";height:1px;background:var(--line);flex:1}
+.section-number{display:inline-grid;place-items:center;width:29px;height:29px;border-radius:9px;background:#e8efff;color:#3f67c8;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.panel{padding:18px 18px 12px;min-width:0}
+.panel-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.panel h3{font-size:14px;margin:0;font-weight:700}
+.panel-heading p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.chart{height:280px;position:relative;margin-top:12px}
+.table-panel{margin-top:16px}
+.dashboard-overview{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(0,1.5fr);gap:16px;margin:0 0 24px}
+.summary-panel{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 7px 24px rgba(28,55,90,.055);padding:18px;min-width:0}
+.summary-panel h3{font-size:15px;margin:0 0 5px}
+.summary-subtitle{font-size:11px;color:var(--muted);margin:0 0 12px}
+.summary-chart{height:220px;position:relative}
+.summary-stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.summary-stat{flex:1;min-width:95px;padding:10px 12px;background:#f6f8fc;border-radius:10px}
+.summary-stat strong{display:block;font-size:19px}
+.summary-stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.method-summary{margin-top:18px}
+.method-summary-title{font-size:11px;font-weight:750;color:#66758a;text-transform:uppercase;letter-spacing:.65px;margin:0 0 9px}
+.method-cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.method-card{overflow:hidden;border:1px solid #e4eaf2;border-radius:12px;background:#fff;min-width:0;box-shadow:0 3px 10px rgba(28,55,90,.045);transition:transform .15s ease,box-shadow .15s ease}
+.method-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(28,55,90,.09)}
+.method-card-head{min-height:50px;padding:8px 7px;background:#f7f9fc;color:#33445b;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:4px;flex-direction:column;text-align:center;line-height:1.05}
+.method-name{font-size:12px;font-weight:800;letter-spacing:.45px;line-height:1}
+.method-label{font-size:10px;font-weight:650;color:#66758a;letter-spacing:.25px;line-height:1}
+.method-card-value{padding:8px 7px;background:#f6f8fc;color:#33445b;font-size:clamp(22px,2.5vw,34px);font-weight:800;line-height:1.1;min-height:58px;display:flex;align-items:center;justify-content:center;text-align:center}
+.method-card.method-get .method-name{color:#2f6fed}.method-card.method-post .method-name{color:#16845a}.method-card.method-put .method-name{color:#c27a12}.method-card.method-delete .method-name{color:#c84b45}.method-card.method-patch .method-name{color:#8064d9}
+.method-card-value small{font-size:11px;font-weight:600;margin-left:7px;opacity:.9}
+.pagination{display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:12px 2px 2px;color:var(--muted);font-size:12px}
+.pagination button{border:1px solid #dce5ef;background:#fff;color:#315f91;border-radius:7px;padding:7px 12px;cursor:pointer;font-size:12px}
+.pagination button:disabled{opacity:.4;cursor:not-allowed}
+.pagination button:not(:disabled):hover{background:#edf4fc}
+.api-dashboard-panel{margin:0 0 26px}
+.status-pill{display:inline-block;padding:4px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.status-pass{background:#e5f6ee;color:#16845a}.status-fail{background:#fff0ee;color:#c84b45}
+@media(max-width:900px){.dashboard-overview{grid-template-columns:1fr}.summary-chart{height:200px}.method-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
+input{width:min(300px,100%);padding:10px 12px;border:1px solid #dce5ef;border-radius:9px;font-size:13px;outline:none}
+input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #4776e61a}
+.tablewrap{overflow:auto;max-height:560px}
+table{border-collapse:collapse;width:100%;font-size:12px;white-space:nowrap}
+th,td{padding:12px 11px;border-bottom:1px solid #edf1f6;text-align:right}
+th{position:sticky;top:0;background:#f5f8fc;color:#53647c;font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+th:first-child,td:first-child{text-align:left}
+tbody tr:hover{background:#f8faff}
+.note{margin-top:20px;padding:13px 15px;background:#edf3fb;border-radius:10px;color:#5e6e84;font-size:12px;line-height:1.6}
+.footer{font-size:11px;color:#8290a3;margin-top:18px}
+@media(max-width:1050px){.kpis{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){main{padding:0 13px 30px}.hero{padding:25px 18px}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.chart{height:250px}.kpi-value{font-size:23px}.method-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.kpis{grid-template-columns:1fr 1fr;gap:9px}.kpi{padding:13px;min-height:100px}.kpi-value{font-size:20px}}
+
+/* JMeter-style fixed left navigation */
+.app-header{position:fixed;z-index:50;top:0;left:0;right:0;height:58px;padding:0 22px;display:flex;align-items:center;background:#fff;border-bottom:1px solid #dfe5ec;color:#24364b;font-size:18px;font-weight:650;box-shadow:0 2px 8px rgba(20,40,70,.04)}
+.sidebar{position:fixed;z-index:40;top:58px;bottom:0;left:0;width:258px;overflow-y:auto;background:#f7f8fa;border-right:1px solid #dfe5ec;padding:12px 0}
+.sidebar a,.nav-toggle{width:100%;display:flex;align-items:center;gap:10px;padding:11px 18px;border:0;background:transparent;color:#3278b9;text-decoration:none;text-align:left;font:14px "Segoe UI",Arial;cursor:pointer}
+.sidebar a:hover,.nav-toggle:hover{background:#eaf0f6}.sidebar a.sub{padding-left:48px;font-size:13px;color:#477da9}.sidebar a.active{background:#e7edf4;color:#205f98;font-weight:650;border-left:3px solid #3e83bd;padding-left:45px}
+.nav-toggle .chev{margin-left:auto;transition:transform .15s}.nav-toggle[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.nav-group{display:none}.nav-group.open{display:block}.nav-separator{height:1px;background:#e1e5eb;margin:7px 0}
+.app-layout{padding-top:58px}.content-main{margin-left:258px;max-width:none;padding:22px 26px 48px;min-width:0}.hero{display:none}.content-main .kpis{margin-bottom:26px}.content-main .section-title{scroll-margin-top:76px;margin-top:12px}
+.content-main .nav-target{scroll-margin-top:78px}
+@media(max-width:760px){.sidebar{width:205px}.content-main{margin-left:205px;padding:18px 14px 35px}.app-header{padding-left:14px}}
+@media(max-width:560px){.sidebar{position:sticky;top:58px;bottom:auto;width:100%;height:auto;max-height:42vh;border-right:0;border-bottom:1px solid #dfe5ec}.app-layout{padding-top:58px}.content-main{margin-left:0;padding:16px 12px 30px}.sidebar a,.nav-toggle{padding:9px 14px}.sidebar a.sub{padding-left:38px}}
+
+</style>
+</head>
+<body>
+<header class="app-header">▥ &nbsp; Apache JMeter Automation Dashboard</header>
+<aside class="sidebar" aria-label="Dashboard navigation">
+  <a href="#dashboard" class="active" data-target="dashboard">▦ &nbsp; Dashboard</a>
+  <div class="nav-separator"></div>
+  <button class="nav-toggle" aria-expanded="true" data-toggle="chartsNav">▥ &nbsp; Charts <span class="chev">‹</span></button>
+  <div class="nav-group open" id="chartsNav">
+    <a class="sub" href="#over-time" data-target="over-time">Over Time</a>
+    <a class="sub" href="#throughput" data-target="throughput">Throughput</a>
+    <a class="sub" href="#response-times" data-target="response-times">Response Times</a>
+  </div>
+  <div class="nav-separator"></div>
+  <button class="nav-toggle" aria-expanded="true" data-toggle="customNav">▥ &nbsp; Custom Graphs <span class="chev">‹</span></button>
+  <div class="nav-group open" id="customNav">
+    <a class="sub" href="#custom-graphs" data-target="custom-graphs">Over Time</a>
+    <a class="sub" href="#custom-graphs" data-target="custom-graphs">API Response Size</a>
+  </div>
+  <div class="nav-separator"></div>
+</aside>
+<div class="app-layout"><main class="content-main">
+  <div class="kpis nav-target" id="dashboard">
+    <div class="kpi"><div class="kpi-label">TOTAL REQUESTS</div><div class="kpi-value">2,720</div><div class="kpi-foot">All recorded samples</div></div>
+    <div class="kpi"><div class="kpi-label">SUCCESSFUL</div><div class="kpi-value green">2,599</div><div class="kpi-foot">95.55% pass rate</div></div>
+    <div class="kpi"><div class="kpi-label">FAILED</div><div class="kpi-value red">121</div><div class="kpi-foot">4.45% failure rate</div></div>
+    <div class="kpi"><div class="kpi-label">AVERAGE RESPONSE</div><div class="kpi-value">122.6 <small style="font-size:13px">ms</small></div><div class="kpi-foot">Across all samples</div></div>
+    <div class="kpi"><div class="kpi-label">HITS / SECOND</div><div class="kpi-value">77.29</div><div class="kpi-foot">Overall average rate</div></div>
+  </div>
+
+  <div class="dashboard-overview">
+    <section class="summary-panel">
+      <h3>Requests Summary</h3>
+      <p class="summary-subtitle">Successful and failed requests across this test run</p>
+      <div class="summary-chart"><canvas id="requestSummary"></canvas></div>
+      <div class="summary-stats">
+        <div class="summary-stat"><strong class="green">2,599</strong><span>Passed · 95.55%</span></div>
+        <div class="summary-stat"><strong class="red">121</strong><span>Failed · 4.45%</span></div>
+      </div>
+    </section>
+    <section class="summary-panel">
+      <h3>Run Highlights</h3>
+      <p class="summary-subtitle">At-a-glance performance indicators</p>
+      <div class="summary-stats">
+        <div class="summary-stat"><strong>136</strong><span>APIs tested</span></div>
+        <div class="summary-stat"><strong>35.2s</strong><span>Test duration</span></div>
+        <div class="summary-stat"><strong>329.1 ms</strong><span>P95 response</span></div>
+        <div class="summary-stat"><strong>77.29</strong><span>Requests/sec</span></div>
+      </div>
+      <div class="method-summary">
+        <div class="method-summary-title">Request Count by HTTP Method</div>
+        <div class="method-cards">
+          <div class="method-card method-get" aria-label="GET Requests">
+        <div class="method-card-head">
+            <span class="method-name">GET</span>
+            <span class="method-label">Requests</span>
+        </div>
+        <div class="method-card-value">1,660</div>
+    </div><div class="method-card method-post" aria-label="POST Requests">
+        <div class="method-card-head">
+            <span class="method-name">POST</span>
+            <span class="method-label">Requests</span>
+        </div>
+        <div class="method-card-value">540</div>
+    </div><div class="method-card method-put" aria-label="PUT Requests">
+        <div class="method-card-head">
+            <span class="method-name">PUT</span>
+            <span class="method-label">Requests</span>
+        </div>
+        <div class="method-card-value">140</div>
+    </div><div class="method-card method-delete" aria-label="DELETE Requests">
+        <div class="method-card-head">
+            <span class="method-name">DELETE</span>
+            <span class="method-label">Requests</span>
+        </div>
+        <div class="method-card-value">0</div>
+    </div><div class="method-card method-patch" aria-label="PATCH Requests">
+        <div class="method-card-head">
+            <span class="method-name">PATCH</span>
+            <span class="method-label">Requests</span>
+        </div>
+        <div class="method-card-value">380</div>
+    </div>
+        </div>
+        <p class="summary-subtitle" style="margin:9px 0 0">HTTP method counts appear when method data is available.</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="panel table-panel api-dashboard-panel">
+    <div class="toolbar"><div><h3>API-wise Performance Details</h3><p style="font-size:11px;color:var(--muted);margin:5px 0 0">Per-API response times, errors and response sizes</p></div><input id="search" placeholder="Search API..." oninput="filterTable()"></div>
+    <div class="tablewrap">
+      <table id="apiTable">
+        <thead><tr><th>API</th><th>Samples</th><th>Average ms</th><th>P90 ms</th><th>P95 ms</th><th>P99 ms</th><th>Errors</th><th>Error %</th><th>Avg response bytes</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>authenticate</td><td>20</td>
+            <td>290.4</td><td>544.4</td>
+            <td>851.9</td><td>956.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1970</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobInterview</td><td>20</td>
+            <td>55.5</td><td>105.5</td>
+            <td>110.2</td><td>113.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1781</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getNtOrganizationSubscriptions</td><td>20</td>
+            <td>530.1</td><td>715.9</td>
+            <td>809.8</td><td>881.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1072</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getTemplateById_1</td><td>20</td>
+            <td>99.0</td><td>204.8</td>
+            <td>343.3</td><td>423.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>2311</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getPreferredCandidate</td><td>20</td>
+            <td>57.0</td><td>97.0</td>
+            <td>277.6</td><td>286.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1399</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updatePreferredCandidate</td><td>20</td>
+            <td>72.0</td><td>124.1</td>
+            <td>235.5</td><td>272.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1182</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>Position</td><td>20</td>
+            <td>63.3</td><td>99.2</td>
+            <td>102.4</td><td>122.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1497</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateMyJobs</td><td>20</td>
+            <td>47.6</td><td>82.6</td>
+            <td>93.1</td><td>170.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAllCountryDialCodes</td><td>20</td>
+            <td>68.5</td><td>103.9</td>
+            <td>135.9</td><td>225.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>17241</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getUserStats</td><td>20</td>
+            <td>68.0</td><td>135.3</td>
+            <td>149.1</td><td>181.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1334</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getOrganizationSubscriptionHistory</td><td>20</td>
+            <td>45.0</td><td>83.4</td>
+            <td>97.4</td><td>118.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1263</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>validateNewUser</td><td>20</td>
+            <td>64.8</td><td>107.7</td>
+            <td>173.0</td><td>385.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1145</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getNotificationList</td><td>20</td>
+            <td>45.4</td><td>106.4</td>
+            <td>112.1</td><td>144.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateNotificationStatus</td><td>20</td>
+            <td>92.8</td><td>155.7</td>
+            <td>212.9</td><td>713.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1187</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getPlan</td><td>20</td>
+            <td>77.8</td><td>168.5</td>
+            <td>300.4</td><td>320.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1773</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAvailability</td><td>20</td>
+            <td>53.2</td><td>82.7</td>
+            <td>89.3</td><td>93.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>archiveAvailability</td><td>20</td>
+            <td>56.6</td><td>104.1</td>
+            <td>114.4</td><td>120.5</td>
+            <td>0</td><td>0.00%</td>
+            <td>1044</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getSignupCounts</td><td>20</td>
+            <td>55.7</td><td>88.1</td>
+            <td>103.5</td><td>187.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1155</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAllUsers</td><td>20</td>
+            <td>215.3</td><td>504.2</td>
+            <td>540.6</td><td>792.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>95173</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAllUsersFiltered</td><td>20</td>
+            <td>133.7</td><td>189.7</td>
+            <td>215.6</td><td>239.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1537</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAllJobs</td><td>20</td>
+            <td>116.8</td><td>158.0</td>
+            <td>184.4</td><td>312.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1053</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateCommunicationStatus</td><td>20</td>
+            <td>85.3</td><td>177.3</td>
+            <td>181.8</td><td>208.3</td>
+            <td>0</td><td>0.00%</td>
+            <td>1143</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateUserProfile</td><td>20</td>
+            <td>53.9</td><td>81.1</td>
+            <td>82.0</td><td>82.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1175</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getTrashedImages</td><td>20</td>
+            <td>132.6</td><td>259.4</td>
+            <td>295.7</td><td>381.5</td>
+            <td>0</td><td>0.00%</td>
+            <td>18737</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateMyJobsCount</td><td>20</td>
+            <td>56.6</td><td>95.6</td>
+            <td>108.5</td><td>221.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1045</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getWorkflowDetail</td><td>20</td>
+            <td>162.2</td><td>291.2</td>
+            <td>374.1</td><td>375.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>4615</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getSavedAddresses</td><td>20</td>
+            <td>70.5</td><td>119.8</td>
+            <td>211.2</td><td>396.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1535</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getUserHistory</td><td>20</td>
+            <td>43.8</td><td>85.3</td>
+            <td>88.4</td><td>94.5</td>
+            <td>0</td><td>0.00%</td>
+            <td>2123</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateUserEmailAndPhone</td><td>20</td>
+            <td>67.9</td><td>93.4</td>
+            <td>105.5</td><td>233.9</td>
+            <td>20</td><td>100.00%</td>
+            <td>1183</td>
+            <td><span class="status-pill status-fail">HAS FAILURES</span></td>
+          </tr>
+          <tr>
+            <td>getPreference</td><td>20</td>
+            <td>45.7</td><td>75.8</td>
+            <td>83.5</td><td>90.3</td>
+            <td>0</td><td>0.00%</td>
+            <td>1297</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateCalendar</td><td>20</td>
+            <td>60.7</td><td>113.7</td>
+            <td>121.1</td><td>137.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1040</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>searchJobs</td><td>20</td>
+            <td>98.6</td><td>246.9</td>
+            <td>318.1</td><td>319.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1022</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getConversation</td><td>20</td>
+            <td>82.3</td><td>261.9</td>
+            <td>290.2</td><td>323.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateRequests</td><td>20</td>
+            <td>95.0</td><td>269.2</td>
+            <td>296.4</td><td>408.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1017</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateUserDetails</td><td>20</td>
+            <td>80.0</td><td>148.5</td>
+            <td>253.4</td><td>274.7</td>
+            <td>20</td><td>100.00%</td>
+            <td>1158</td>
+            <td><span class="status-pill status-fail">HAS FAILURES</span></td>
+          </tr>
+          <tr>
+            <td>patchJobInterviewStatus</td><td>20</td>
+            <td>79.1</td><td>160.5</td>
+            <td>185.7</td><td>226.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1176</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateWorkflowJobs</td><td>20</td>
+            <td>54.7</td><td>96.2</td>
+            <td>107.8</td><td>120.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getOrganizationPlans</td><td>20</td>
+            <td>93.0</td><td>151.0</td>
+            <td>220.7</td><td>322.5</td>
+            <td>0</td><td>0.00%</td>
+            <td>2576</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getNtOrganizationSubscriptionLocations</td><td>20</td>
+            <td>301.4</td><td>407.3</td>
+            <td>437.1</td><td>438.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>2260</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getNtOrganizationSubscriptionDetails</td><td>20</td>
+            <td>82.5</td><td>116.1</td>
+            <td>138.4</td><td>190.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1507</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getUserResource</td><td>20</td>
+            <td>64.2</td><td>96.2</td>
+            <td>132.7</td><td>248.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1413</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateWorkflowCount</td><td>20</td>
+            <td>77.8</td><td>113.0</td>
+            <td>190.6</td><td>275.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1076</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateJobs</td><td>20</td>
+            <td>121.7</td><td>201.8</td>
+            <td>276.4</td><td>479.3</td>
+            <td>0</td><td>0.00%</td>
+            <td>2646</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getInvitesForCandidate</td><td>20</td>
+            <td>73.7</td><td>92.3</td>
+            <td>97.6</td><td>137.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1053</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getStatusCount</td><td>20</td>
+            <td>51.1</td><td>97.8</td>
+            <td>112.9</td><td>233.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1056</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>setPreferredAddress</td><td>20</td>
+            <td>95.9</td><td>159.4</td>
+            <td>182.3</td><td>338.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1180</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobApplicants</td><td>20</td>
+            <td>61.6</td><td>105.0</td>
+            <td>130.1</td><td>237.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>primarySmsCallback</td><td>20</td>
+            <td>68.5</td><td>90.3</td>
+            <td>154.3</td><td>265.3</td>
+            <td>0</td><td>0.00%</td>
+            <td>1059</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>parseResume</td><td>20</td>
+            <td>234.7</td><td>396.4</td>
+            <td>431.1</td><td>492.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1152</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getSubscriptionDetails</td><td>20</td>
+            <td>80.0</td><td>144.5</td>
+            <td>201.1</td><td>308.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1540</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getArchivedAvailability</td><td>20</td>
+            <td>56.1</td><td>94.3</td>
+            <td>106.6</td><td>114.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>2352</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAppliedCandidates</td><td>20</td>
+            <td>62.2</td><td>90.6</td>
+            <td>96.2</td><td>98.4</td>
+            <td>0</td><td>0.00%</td>
+            <td>1104</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getOrganizationRecentUpdates</td><td>20</td>
+            <td>49.8</td><td>94.2</td>
+            <td>96.8</td><td>108.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1025</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>addUserMobileDetails</td><td>20</td>
+            <td>78.1</td><td>110.0</td>
+            <td>113.0</td><td>157.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1180</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>deactivateByMobileId</td><td>20</td>
+            <td>67.4</td><td>97.0</td>
+            <td>97.3</td><td>101.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1182</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>uploadResumeFile</td><td>20</td>
+            <td>363.4</td><td>504.9</td>
+            <td>753.2</td><td>846.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1136</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobsWorkflowCount</td><td>20</td>
+            <td>85.0</td><td>217.8</td>
+            <td>234.5</td><td>242.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1152</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getRecommendedCandidates</td><td>20</td>
+            <td>217.4</td><td>387.7</td>
+            <td>412.3</td><td>416.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>18030</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getTimesheetDetails</td><td>20</td>
+            <td>76.6</td><td>96.2</td>
+            <td>281.2</td><td>466.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getDashboardRecommendedJobs</td><td>20</td>
+            <td>70.5</td><td>95.6</td>
+            <td>113.3</td><td>163.5</td>
+            <td>0</td><td>0.00%</td>
+            <td>1341</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getRecommendedJobs</td><td>20</td>
+            <td>123.8</td><td>215.1</td>
+            <td>317.0</td><td>483.4</td>
+            <td>0</td><td>0.00%</td>
+            <td>1804</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>handleGoogleCallback</td><td>20</td>
+            <td>162.6</td><td>292.3</td>
+            <td>367.3</td><td>371.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>22413</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>handleGoogleCallback-0</td><td>20</td>
+            <td>42.6</td><td>72.5</td>
+            <td>77.6</td><td>85.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1095</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>handleGoogleCallback-1</td><td>20</td>
+            <td>118.5</td><td>203.7</td>
+            <td>302.6</td><td>341.3</td>
+            <td>0</td><td>0.00%</td>
+            <td>21318</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getUsersByLocation</td><td>20</td>
+            <td>50.9</td><td>90.9</td>
+            <td>128.4</td><td>164.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>3756</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getApprovalRequestCount</td><td>20</td>
+            <td>71.9</td><td>121.7</td>
+            <td>136.1</td><td>258.4</td>
+            <td>0</td><td>0.00%</td>
+            <td>1080</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>generateEmailOtp</td><td>20</td>
+            <td>112.3</td><td>255.6</td>
+            <td>315.6</td><td>324.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1170</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getByPincode</td><td>20</td>
+            <td>44.5</td><td>76.2</td>
+            <td>78.1</td><td>79.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1082</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getBillingDetails</td><td>20</td>
+            <td>60.3</td><td>101.4</td>
+            <td>198.7</td><td>254.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1376</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>upsertBillingDetails</td><td>20</td>
+            <td>68.8</td><td>146.4</td>
+            <td>164.9</td><td>254.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1191</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateJobStatus</td><td>20</td>
+            <td>90.5</td><td>113.0</td>
+            <td>143.1</td><td>463.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1166</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateRecentUpdates</td><td>20</td>
+            <td>52.4</td><td>79.5</td>
+            <td>104.5</td><td>142.5</td>
+            <td>0</td><td>0.00%</td>
+            <td>1025</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getFeedback</td><td>20</td>
+            <td>102.4</td><td>206.3</td>
+            <td>291.8</td><td>455.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1216</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateFeedback</td><td>20</td>
+            <td>78.2</td><td>136.0</td>
+            <td>238.0</td><td>282.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1171</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobTemplates</td><td>20</td>
+            <td>61.6</td><td>93.6</td>
+            <td>103.4</td><td>170.3</td>
+            <td>0</td><td>0.00%</td>
+            <td>1856</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateJobTemplate</td><td>20</td>
+            <td>115.5</td><td>232.4</td>
+            <td>282.3</td><td>302.1</td>
+            <td>1</td><td>5.00%</td>
+            <td>1174</td>
+            <td><span class="status-pill status-fail">HAS FAILURES</span></td>
+          </tr>
+          <tr>
+            <td>deactivateJobTemplate</td><td>20</td>
+            <td>59.0</td><td>93.9</td>
+            <td>114.1</td><td>161.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1175</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>createOrder</td><td>20</td>
+            <td>108.5</td><td>202.5</td>
+            <td>290.0</td><td>319.6</td>
+            <td>20</td><td>100.00%</td>
+            <td>1191</td>
+            <td><span class="status-pill status-fail">HAS FAILURES</span></td>
+          </tr>
+          <tr>
+            <td>getAllProfessions</td><td>20</td>
+            <td>51.0</td><td>88.4</td>
+            <td>203.0</td><td>247.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1381</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getResumes</td><td>20</td>
+            <td>71.3</td><td>122.0</td>
+            <td>267.4</td><td>288.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAvailabilityDates</td><td>20</td>
+            <td>81.0</td><td>155.8</td>
+            <td>184.5</td><td>237.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1026</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateViewStatus</td><td>20</td>
+            <td>70.2</td><td>106.4</td>
+            <td>138.2</td><td>155.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1175</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getOrganizationBanner</td><td>20</td>
+            <td>86.2</td><td>126.9</td>
+            <td>460.3</td><td>479.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1304</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>generatePresignedUrl</td><td>20</td>
+            <td>105.0</td><td>306.2</td>
+            <td>313.8</td><td>402.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1422</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>generateMobileOtp</td><td>20</td>
+            <td>93.5</td><td>160.4</td>
+            <td>164.3</td><td>169.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1170</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getProfessionAndCollegeList</td><td>20</td>
+            <td>100.5</td><td>175.9</td>
+            <td>268.1</td><td>315.2</td>
+            <td>20</td><td>100.00%</td>
+            <td>1175</td>
+            <td><span class="status-pill status-fail">HAS FAILURES</span></td>
+          </tr>
+          <tr>
+            <td>authenticateUser</td><td>20</td>
+            <td>115.2</td><td>231.4</td>
+            <td>290.1</td><td>306.8</td>
+            <td>20</td><td>100.00%</td>
+            <td>1164</td>
+            <td><span class="status-pill status-fail">HAS FAILURES</span></td>
+          </tr>
+          <tr>
+            <td>getOrganizationActionRequired</td><td>20</td>
+            <td>105.5</td><td>179.6</td>
+            <td>297.0</td><td>357.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1086</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getTemplateById</td><td>20</td>
+            <td>49.2</td><td>80.3</td>
+            <td>122.6</td><td>177.3</td>
+            <td>0</td><td>0.00%</td>
+            <td>1527</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>patchDeactivateTemplates</td><td>20</td>
+            <td>78.1</td><td>121.0</td>
+            <td>239.2</td><td>256.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1184</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getTimesheetSummary</td><td>20</td>
+            <td>51.9</td><td>86.0</td>
+            <td>93.9</td><td>213.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1102</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAllOrganizationTypes</td><td>20</td>
+            <td>49.3</td><td>87.3</td>
+            <td>150.4</td><td>246.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1246</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getOrganizations</td><td>20</td>
+            <td>64.7</td><td>103.9</td>
+            <td>143.9</td><td>218.4</td>
+            <td>20</td><td>100.00%</td>
+            <td>1177</td>
+            <td><span class="status-pill status-fail">HAS FAILURES</span></td>
+          </tr>
+          <tr>
+            <td>getNotificationFrequency</td><td>20</td>
+            <td>51.8</td><td>87.9</td>
+            <td>105.3</td><td>109.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1116</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateNotificationFrequency</td><td>20</td>
+            <td>69.8</td><td>129.2</td>
+            <td>143.8</td><td>201.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1145</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getOrganizationById</td><td>20</td>
+            <td>62.7</td><td>100.2</td>
+            <td>132.6</td><td>324.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1782</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateOrganizationAssets</td><td>20</td>
+            <td>97.5</td><td>218.6</td>
+            <td>235.7</td><td>276.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1183</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>search</td><td>20</td>
+            <td>51.1</td><td>85.3</td>
+            <td>97.4</td><td>103.5</td>
+            <td>0</td><td>0.00%</td>
+            <td>1438</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>generateWithAI</td><td>20</td>
+            <td>1528.6</td><td>1705.8</td>
+            <td>1796.0</td><td>1963.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1641</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getNotificationCount</td><td>20</td>
+            <td>64.9</td><td>166.7</td>
+            <td>236.2</td><td>239.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1028</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobLocations</td><td>20</td>
+            <td>99.4</td><td>119.4</td>
+            <td>178.1</td><td>330.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>2384</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getInvitedCandidates</td><td>20</td>
+            <td>111.3</td><td>208.1</td>
+            <td>237.8</td><td>264.3</td>
+            <td>0</td><td>0.00%</td>
+            <td>2181</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>inviteCandidate</td><td>20</td>
+            <td>68.2</td><td>147.0</td>
+            <td>176.0</td><td>206.4</td>
+            <td>0</td><td>0.00%</td>
+            <td>1187</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getUpcomingInterviews</td><td>20</td>
+            <td>74.1</td><td>130.3</td>
+            <td>160.6</td><td>169.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1059</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getDashboardMyJobs</td><td>20</td>
+            <td>76.0</td><td>186.1</td>
+            <td>251.9</td><td>280.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getProfileFields</td><td>20</td>
+            <td>52.6</td><td>82.3</td>
+            <td>118.5</td><td>216.5</td>
+            <td>0</td><td>0.00%</td>
+            <td>1234</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getResume</td><td>20</td>
+            <td>97.3</td><td>150.5</td>
+            <td>162.9</td><td>282.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>5474</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>extractJobDescription</td><td>20</td>
+            <td>632.5</td><td>1007.9</td>
+            <td>1140.6</td><td>1392.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>4985</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAllTemplates</td><td>20</td>
+            <td>2608.4</td><td>5746.3</td>
+            <td>5910.2</td><td>6034.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>705750</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAllCandidateProfiles</td><td>20</td>
+            <td>263.6</td><td>502.6</td>
+            <td>562.3</td><td>1250.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>32253</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobTypesByProfession</td><td>20</td>
+            <td>51.5</td><td>94.5</td>
+            <td>109.0</td><td>260.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1381</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateUserTypeAndRole</td><td>20</td>
+            <td>62.9</td><td>93.3</td>
+            <td>181.8</td><td>253.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1181</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobs</td><td>20</td>
+            <td>63.3</td><td>110.1</td>
+            <td>113.8</td><td>156.4</td>
+            <td>0</td><td>0.00%</td>
+            <td>3275</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateJobDocument</td><td>20</td>
+            <td>69.0</td><td>130.6</td>
+            <td>184.2</td><td>232.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1166</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getSavedJobs</td><td>20</td>
+            <td>105.6</td><td>206.5</td>
+            <td>295.8</td><td>353.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>2174</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>saveJobStatus</td><td>20</td>
+            <td>111.0</td><td>229.4</td>
+            <td>319.4</td><td>674.3</td>
+            <td>0</td><td>0.00%</td>
+            <td>1172</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateWorkflowDetails</td><td>20</td>
+            <td>75.2</td><td>112.8</td>
+            <td>273.6</td><td>281.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getOrganizationDashboard</td><td>20</td>
+            <td>48.7</td><td>73.2</td>
+            <td>102.2</td><td>104.4</td>
+            <td>0</td><td>0.00%</td>
+            <td>1030</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobHistory</td><td>20</td>
+            <td>60.8</td><td>91.3</td>
+            <td>164.1</td><td>272.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>authenticatedUser</td><td>20</td>
+            <td>51.2</td><td>75.3</td>
+            <td>87.3</td><td>228.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1493</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getTimesheet</td><td>20</td>
+            <td>49.3</td><td>74.0</td>
+            <td>75.3</td><td>95.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAnonymousToken</td><td>20</td>
+            <td>65.5</td><td>95.6</td>
+            <td>111.1</td><td>264.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1644</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getOrCheck</td><td>20</td>
+            <td>81.7</td><td>269.1</td>
+            <td>286.3</td><td>396.4</td>
+            <td>0</td><td>0.00%</td>
+            <td>1070</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>increment</td><td>20</td>
+            <td>76.4</td><td>144.7</td>
+            <td>263.5</td><td>331.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1053</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>decrement</td><td>20</td>
+            <td>85.5</td><td>130.9</td>
+            <td>248.8</td><td>276.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1053</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getDashboard</td><td>20</td>
+            <td>91.3</td><td>289.0</td>
+            <td>293.8</td><td>366.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1129</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCorporateRequests</td><td>20</td>
+            <td>80.8</td><td>116.3</td>
+            <td>196.0</td><td>271.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1356</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>addRecentResume</td><td>20</td>
+            <td>80.5</td><td>243.8</td>
+            <td>261.0</td><td>276.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1180</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateOfferJobs</td><td>20</td>
+            <td>52.5</td><td>72.2</td>
+            <td>93.9</td><td>259.6</td>
+            <td>0</td><td>0.00%</td>
+            <td>1017</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getAllOrganizations</td><td>20</td>
+            <td>164.5</td><td>313.7</td>
+            <td>330.5</td><td>490.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>28266</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getPreferredOrganization</td><td>20</td>
+            <td>47.0</td><td>85.0</td>
+            <td>158.4</td><td>178.9</td>
+            <td>0</td><td>0.00%</td>
+            <td>1402</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobTracking</td><td>20</td>
+            <td>50.6</td><td>95.9</td>
+            <td>122.3</td><td>126.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1006</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getJobProfessions</td><td>20</td>
+            <td>61.0</td><td>119.2</td>
+            <td>158.6</td><td>182.1</td>
+            <td>0</td><td>0.00%</td>
+            <td>1477</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateAadhaarStatus</td><td>20</td>
+            <td>46.3</td><td>87.1</td>
+            <td>128.2</td><td>192.0</td>
+            <td>0</td><td>0.00%</td>
+            <td>1177</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>getCandidateProfile</td><td>20</td>
+            <td>61.5</td><td>110.2</td>
+            <td>140.4</td><td>161.7</td>
+            <td>0</td><td>0.00%</td>
+            <td>1869</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>updateCandidateSpecificDetails</td><td>20</td>
+            <td>62.7</td><td>100.6</td>
+            <td>107.1</td><td>123.8</td>
+            <td>0</td><td>0.00%</td>
+            <td>1180</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="apiPagination">
+      <span id="pageInfo">Showing 0-0 of 0 APIs</span>
+      <button type="button" id="prevPage" onclick="changeApiPage(-1)">Previous</button>
+      <button type="button" id="nextPage" onclick="changeApiPage(1)">Next</button>
+    </div>
+  </section>
+
+  <h2 class="section-title nav-target" id="over-time"><span class="section-number">01</span>Over Time</h2>
+  <div class="grid">
+    <section class="panel"><div class="panel-heading"><div><h3>Response Times Over Time</h3><p>Average response time per 10-second bucket (ms)</p></div></div><div class="chart"><canvas id="responseTime"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Response Time Percentiles Over Time (successful responses)</h3><p>P90, P95 and P99 response times (ms)</p></div></div><div class="chart"><canvas id="percentileTime"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Active Threads Over Time</h3><p>Maximum recorded active threads per bucket</p></div></div><div class="chart"><canvas id="activeThreads"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Bytes Throughput Over Time</h3><p>Received and sent bytes per second</p></div></div><div class="chart"><canvas id="bytesThroughput"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Latencies Over Time</h3><p>Average latency per 10-second bucket (ms)</p></div></div><div class="chart"><canvas id="latencies"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Connect Time Over Time</h3><p>Average connection time per 10-second bucket (ms)</p></div></div><div class="chart"><canvas id="connectTime"></canvas></div></section>
+  </div>
+
+  <h2 class="section-title nav-target" id="throughput"><span class="section-number">02</span>Throughput</h2>
+  <div class="grid">
+    <section class="panel"><div class="panel-heading"><div><h3>Hits Per Second</h3><p>Sample count per second (10-second bucket average)</p></div></div><div class="chart"><canvas id="hits"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Transactions Per Second</h3><p>Uses Transaction Controller samples when present; otherwise request samples/sec as a fallback</p></div></div><div class="chart"><canvas id="transactions"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Total Transactions Per Second</h3><p>Cumulative average throughput since test start (request fallback if no Transaction Controller samples exist)</p></div></div><div class="chart"><canvas id="totalTransactions"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Response Time Vs Request</h3><p>Average and maximum values grouped by request sequence</p></div></div><div class="chart"><canvas id="responseScatter"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Latency Vs Request</h3><p>Average and maximum values grouped by request sequence</p></div></div><div class="chart"><canvas id="latencyScatter"></canvas></div></section>
+  </div>
+
+  <h2 class="section-title nav-target" id="response-times"><span class="section-number">03</span>Response Times</h2>
+  <div class="grid">
+    <section class="panel"><div class="panel-heading"><div><h3>Response Time Percentiles</h3><p>P50, P90, P95 and P99 across all samples (ms)</p></div></div><div class="chart"><canvas id="responsePercentiles"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Response Time Overview</h3><p>Average, minimum and maximum response time (ms)</p></div></div><div class="chart"><canvas id="responseOverview"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Time Vs Threads</h3><p>Active threads by elapsed-time bucket</p></div></div><div class="chart"><canvas id="timeThreads"></canvas></div></section>
+    <section class="panel"><div class="panel-heading"><div><h3>Response Time Distribution</h3><p>Number of samples in each response-time range</p></div></div><div class="chart"><canvas id="distribution"></canvas></div></section>
+  </div>
+
+  <h2 class="section-title nav-target" id="custom-graphs"><span class="section-number">04</span>Custom Graphs · Over Time</h2>
+  <div class="grid">
+    <section class="panel"><div class="panel-heading"><div><h3>API Response Size</h3><p>Average response payload bytes by API label</p></div></div><div class="chart"><canvas id="apiResponseSize"></canvas></div></section>
+  </div>
+
+  </main></div>
+
+<script>
+const D = {"labels":["0s","10s","20s","30s"],"avgResponse":[78.5021398002853,135.625,165.89105058365757,51.9375],"minResponse":[9,11,10,9],"maxResponseOverTime":[1661,1785,6065,2507],"p90OverTime":[151.60000000000014,278.4000000000001,268.30000000000007,62],"p95OverTime":[269.14999999999975,439.39999999999964,421.74999999999966,77.24999999999997],"p99OverTime":[444.50000000000205,1216.7600000000016,1994.2000000000007,293.0100000000001],"activeThreads":[11,16,14,8],"latencyOverTime":[74.99144079885878,125.140625,109.27237354085604,38.129464285714285],"connectOverTime":[2.7303851640513552,0.642578125,0.9195849546044098,0],"receivedRate":[247755.8,914199.7,977499.4,141475.3],"sentRate":[637398.6,1079587.4,936219.3,56593.3],"hitsPerSecond":[70.1,102.4,77.1,22.4],"transactionsPerSecond":[70.1,102.4,77.1,22.4],"totalTransactionsPerSecond":[70.1,86.25,83.2,68],"transactionAvailable":false,"transactionSeriesLabel":"Request samples/sec (fallback; no Transaction Controller rows in JTL)","responseByRequest":{"labels":["1-136","137-272","273-408","409-544","545-680","681-816","817-952","953-1088","1089-1224","1225-1360","1361-1496","1497-1632","1633-1768","1769-1904","1905-2040","2041-2176","2177-2312","2313-2448","2449-2584","2585-2720"],"averages":[74.93382352941177,87.38970588235294,67.0220588235294,93.29411764705883,68.5,166.01470588235293,118.88235294117646,134.40441176470588,140.66176470588235,116.63235294117646,179.15441176470588,95.25735294117646,107.56617647058823,139.5514705882353,107.81617647058823,128.18382352941177,198.16176470588235,222.27205882352942,169.26470588235293,36.845588235294116],"maxima":[855,573,392,1661,478,1692,1539,995,1785,895,1597,1262,1375,2005,1396,3415,6065,5902,5067,110]},"latencyByRequest":{"labels":["1-136","137-272","273-408","409-544","545-680","681-816","817-952","953-1088","1089-1224","1225-1360","1361-1496","1497-1632","1633-1768","1769-1904","1905-2040","2041-2176","2177-2312","2313-2448","2449-2584","2585-2720"],"averages":[68.22058823529412,83.16176470588235,64.375,91.1029411764706,66.8529411764706,143.15441176470588,112.71323529411765,130.2941176470588,133.75735294117646,109.05882352941177,164.99264705882354,88.51470588235294,95.96323529411765,127.36764705882354,99.26470588235294,98.55882352941177,119.33088235294117,119.83088235294117,59.080882352941174,35.455882352941174],"maxima":[839,570,391,1661,470,1691,1539,995,1785,895,1406,1262,878,2004,1396,1351,1517,1550,1374,110]},"distributionLabels":["550-1100 ms","0-550 ms","1650-2200 ms","1100-1650 ms","3300-3850 ms","4400-4950 ms","6050-6600 ms","5500-6050 ms","4950-5500 ms","2200-2750 ms"],"distributionValues":[31,2651,7,23,1,2,1,2,1,1],"apiNames":["authenticate","getJobInterview","getNtOrganizationSubscriptions","getTemplateById_1","getPreferredCandidate","updatePreferredCandidate","Position","getCandidateMyJobs","getAllCountryDialCodes","getUserStats","getOrganizationSubscriptionHistory","validateNewUser","getNotificationList","updateNotificationStatus","getPlan","getAvailability","archiveAvailability","getSignupCounts","getAllUsers","getAllUsersFiltered","getAllJobs","updateCommunicationStatus","updateUserProfile","getTrashedImages","getCandidateMyJobsCount","getWorkflowDetail","getSavedAddresses","getUserHistory","updateUserEmailAndPhone","getPreference","getCandidateCalendar","searchJobs","getConversation","getCandidateRequests","updateUserDetails","patchJobInterviewStatus","getCandidateWorkflowJobs","getOrganizationPlans","getNtOrganizationSubscriptionLocations","getNtOrganizationSubscriptionDetails","getUserResource","getCandidateWorkflowCount","getCandidateJobs","getInvitesForCandidate","getStatusCount","setPreferredAddress","getJobApplicants","primarySmsCallback","parseResume","getSubscriptionDetails","getArchivedAvailability","getAppliedCandidates","getOrganizationRecentUpdates","addUserMobileDetails","deactivateByMobileId","uploadResumeFile","getJobsWorkflowCount","getRecommendedCandidates","getTimesheetDetails","getDashboardRecommendedJobs","getRecommendedJobs","handleGoogleCallback","handleGoogleCallback-0","handleGoogleCallback-1","getUsersByLocation","getApprovalRequestCount","generateEmailOtp","getByPincode","getBillingDetails","upsertBillingDetails","updateJobStatus","getCandidateRecentUpdates","getFeedback","updateFeedback","getJobTemplates","updateJobTemplate","deactivateJobTemplate","createOrder","getAllProfessions","getResumes","getAvailabilityDates","updateViewStatus","getOrganizationBanner","generatePresignedUrl","generateMobileOtp","getProfessionAndCollegeList","authenticateUser","getOrganizationActionRequired","getTemplateById","patchDeactivateTemplates","getTimesheetSummary","getAllOrganizationTypes","getOrganizations","getNotificationFrequency","updateNotificationFrequency","getOrganizationById","updateOrganizationAssets","search","generateWithAI","getNotificationCount","getJobLocations","getInvitedCandidates","inviteCandidate","getUpcomingInterviews","getDashboardMyJobs","getProfileFields","getResume","extractJobDescription","getAllTemplates","getAllCandidateProfiles","getJobTypesByProfession","updateUserTypeAndRole","getJobs","updateJobDocument","getSavedJobs","saveJobStatus","getCandidateWorkflowDetails","getOrganizationDashboard","getJobHistory","authenticatedUser","getTimesheet","getAnonymousToken","getOrCheck","increment","decrement","getDashboard","getCorporateRequests","addRecentResume","getCandidateOfferJobs","getAllOrganizations","getPreferredOrganization","getJobTracking","getJobProfessions","updateAadhaarStatus","getCandidateProfile","updateCandidateSpecificDetails"],"apiAverageSize":[1970,1781,1072,2311.35,1399,1182,1497,1006,17241.05,1334,1263,1145,1006,1187,1773,1006,1044,1155,95173.4,1537,1053,1143,1175,18736.65,1045,4615,1535.1,2123,1183,1297,1040,1022,1006,1017,1158,1176,1006,2576,2260,1507,1413,1076,2646,1053,1056,1180,1006,1059,1152,1540,2352,1104,1025,1180.1,1182,1136,1152,18029.8,1006,1341,1804,22413,1095,21318,3756,1080,1170,1082,1376,1191,1166,1025,1216,1171,1856,1174.2,1175,1191,1381,1006,1026,1175,1304,1422,1170,1175,1164,1086,1527,1184,1102,1246,1177,1116,1145,1782,1183,1438,1640.85,1028,2384,2181,1187,1059,1006,1234,5474,4985,705749.9,32253.3,1381,1181,3275,1166,2174.35,1172,1006,1030,1006,1493,1006,1644,1070,1053,1053,1129,1356,1180,1017,28266.05,1402,1006,1477,1177,1869,1180],"apiTotalSize":[39400,35620,21440,46227,27980,23640,29940,20120,344821,26680,25260,22900,20120,23740,35460,20120,20880,23100,1903468,30740,21060,22860,23500,374733,20900,92300,30702,42460,23660,25940,20800,20440,20120,20340,23160,23520,20120,51520,45200,30140,28260,21520,52920,21060,21120,23600,20120,21180,23040,30800,47040,22080,20500,23602,23640,22720,23040,360596,20120,26820,36080,448260,21900,426360,75120,21600,23400,21640,27520,23820,23320,20500,24320,23420,37120,23484,23500,23820,27620,20120,20520,23500,26080,28440,23400,23500,23280,21720,30540,23680,22040,24920,23540,22320,22900,35640,23660,28760,32817,20560,47680,43620,23740,21180,20120,24680,109480,99700,14114998,645066,27620,23620,65500,23320,43487,23440,20120,20600,20120,29860,20120,32880,21400,21060,21060,22580,27120,23600,20340,565321,28040,20120,29540,23540,37380,23600],"methodSource":"JMX sampler metadata"};
+const requestSummaryCanvas = document.getElementById("requestSummary");
+if (requestSummaryCanvas) {
+  new Chart(requestSummaryCanvas, {
+    type: "pie",
+    data: {
+      labels: ["FAIL", "PASS"],
+      datasets: [{
+        data: [121, 2599],
+        backgroundColor: ["#ff6659", "#95cc2f"],
+        borderColor: ["#ffffff", "#ffffff"],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "right", labels: { boxWidth: 10, padding: 12, font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => ctx.label + ": " + ctx.raw.toLocaleString() + " (" + (ctx.raw / 2720 * 100).toFixed(2) + "%)" } }
+      }
+    }
+  });
+}
+const chartDefaults = {responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},plugins:{legend:{position:"bottom",labels:{usePointStyle:true,boxWidth:8,font:{size:10}}}},scales:{x:{grid:{display:false},ticks:{autoSkip:true,maxTicksLimit:11,maxRotation:40,font:{size:9}}},y:{beginAtZero:true,ticks:{font:{size:9}}}}};
+function columns(id, labels, datasets, yTitle, horizontal=false) {
+  const el=document.getElementById(id); if(!el) return;
+  const opts=JSON.parse(JSON.stringify(chartDefaults));
+  opts.indexAxis=horizontal?"y":"x";
+  opts.scales[horizontal?"x":"y"].title={display:true,text:yTitle,font:{size:10}};
+  opts.plugins.legend.display=datasets.length>1;
+  new Chart(el,{type:"bar",data:{labels,datasets:datasets.map(d=>({label:d.label,data:d.data,backgroundColor:d.color+"bd",borderColor:d.color,borderWidth:1,borderRadius:3,maxBarThickness:30}))},options:opts});
+}
+columns("responseTime",D.labels,[{label:"Average response",data:D.avgResponse,color:"#4776e6"}],"Response time (ms)");
+columns("percentileTime",D.labels,[{label:"P90",data:D.p90OverTime,color:"#16a085"},{label:"P95",data:D.p95OverTime,color:"#8064d9"},{label:"P99",data:D.p99OverTime,color:"#df5b68"}],"Response time (ms)");
+columns("activeThreads",D.labels,[{label:"Active threads",data:D.activeThreads,color:"#e69a45"}],"Active threads");
+columns("bytesThroughput",D.labels,[{label:"Received bytes/sec",data:D.receivedRate,color:"#16a085"},{label:"Sent bytes/sec",data:D.sentRate,color:"#8064d9"}],"Bytes / second");
+columns("latencies",D.labels,[{label:"Average latency",data:D.latencyOverTime,color:"#8064d9"}],"Latency (ms)");
+columns("connectTime",D.labels,[{label:"Average connect time",data:D.connectOverTime,color:"#e69a45"}],"Connect time (ms)");
+columns("hits",D.labels,[{label:"Hits / second",data:D.hitsPerSecond,color:"#16a085"}],"Hits / second");
+columns("transactions",D.labels,[{label:D.transactionSeriesLabel,data:D.transactionsPerSecond,color:"#4776e6"}],"Samples / second");
+columns("totalTransactions",D.labels,[{label:D.transactionAvailable?"Cumulative transactions/sec":"Cumulative request samples/sec (fallback)",data:D.totalTransactionsPerSecond,color:"#8064d9"}],"Cumulative samples / second");
+columns("responseScatter",D.responseByRequest.labels,[{label:"Average response",data:D.responseByRequest.averages,color:"#4776e6"},{label:"Maximum response",data:D.responseByRequest.maxima,color:"#df5b68"}],"Response time (ms)");
+columns("latencyScatter",D.latencyByRequest.labels,[{label:"Average latency",data:D.latencyByRequest.averages,color:"#16a085"},{label:"Maximum latency",data:D.latencyByRequest.maxima,color:"#8064d9"}],"Latency (ms)");
+columns("responsePercentiles",["P50","P90","P95","P99"],[{label:"Response time",data:[63.0000,237.0000,329.1500,1392.0100],color:"#8064d9"}],"Response time (ms)");
+columns("responseOverview",["Average","Minimum","Maximum"],[{label:"Response time",data:[122.5904,9.0000,6065.0000],color:"#4776e6"}],"Response time (ms)");
+columns("timeThreads",D.labels,[{label:"Active threads",data:D.activeThreads,color:"#e69a45"}],"Active threads");
+columns("distribution",D.distributionLabels,[{label:"Sample count",data:D.distributionValues,color:"#8064d9"}],"Samples");
+columns("apiResponseSize",D.apiNames,[{label:"Average response size",data:D.apiAverageSize,color:"#16a085"}],"Average response size (bytes)",true);
+
+// Sidebar accordion and section navigation.
+// Selecting a section shows ONLY that section's content in the main panel.
+const sectionIds = ["over-time", "throughput", "response-times", "custom-graphs"];
+const dashboardKpis = document.getElementById("dashboard");
+const dashboardOverview = document.querySelector(".dashboard-overview");
+const apiDashboardPanel = document.querySelector(".api-dashboard-panel");
+const notesPanel = document.querySelector(".content-main > .note");
+const footerPanel = document.querySelector(".content-main > .footer");
+
+function showDashboardSection(targetId) {
+  const isDashboard = targetId === "dashboard";
+  if (dashboardKpis) dashboardKpis.hidden = !isDashboard;
+  if (dashboardOverview) dashboardOverview.hidden = !isDashboard;
+  if (apiDashboardPanel) apiDashboardPanel.hidden = !isDashboard;
+
+  // Hide every chart section first, then reveal only the selected one.
+  sectionIds.forEach(id => {
+    const heading = document.getElementById(id);
+    if (!heading) return;
+    const content = heading.nextElementSibling;
+    const visible = id === targetId;
+    heading.hidden = !visible;
+    if (content && content.classList.contains("grid")) content.hidden = !visible;
+  });
+
+  if (notesPanel) notesPanel.hidden = !isDashboard;
+  if (footerPanel) footerPanel.hidden = !isDashboard;
+
+  document.querySelectorAll(".sidebar a[data-target]").forEach(link => {
+    const active = link.dataset.target === targetId;
+    link.classList.toggle("active", active);
+    if (active) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+}
+
+document.querySelectorAll(".nav-toggle").forEach(button=>button.addEventListener("click",()=>{
+  const group=document.getElementById(button.dataset.toggle); const open=button.getAttribute("aria-expanded")==="true";
+  button.setAttribute("aria-expanded",String(!open)); group.classList.toggle("open",!open);
+}));
+document.querySelectorAll(".sidebar a[data-target]").forEach(link=>link.addEventListener("click",event=>{
+  event.preventDefault();
+  showDashboardSection(link.dataset.target);
+}));
+
+// Start with the dashboard overview. Clicking Over Time, Throughput or
+// Response Times switches to that section alone (no other section graphs).
+showDashboardSection("dashboard");
+
+const apiRows = Array.from(document.querySelectorAll("#apiTable tbody tr"));
+const apiPageSize = 10;
+let apiCurrentPage = 1;
+let apiFilteredRows = apiRows;
+function renderApiPage() {
+  const pageCount = Math.max(1, Math.ceil(apiFilteredRows.length / apiPageSize));
+  if (apiCurrentPage > pageCount) apiCurrentPage = pageCount;
+  const startIndex = (apiCurrentPage - 1) * apiPageSize;
+  const endIndex = Math.min(startIndex + apiPageSize, apiFilteredRows.length);
+  apiRows.forEach(row => { row.style.display = "none"; });
+  apiFilteredRows.slice(startIndex, endIndex).forEach(row => { row.style.display = ""; });
+  const info = document.getElementById("pageInfo");
+  if (info) info.textContent = apiFilteredRows.length
+    ? ("Showing " + (startIndex + 1) + "-" + endIndex + " of " + apiFilteredRows.length + " APIs · 10 per page")
+    : "No APIs match your search";
+  const prev = document.getElementById("prevPage");
+  const next = document.getElementById("nextPage");
+  if (prev) prev.disabled = apiCurrentPage <= 1;
+  if (next) next.disabled = apiCurrentPage >= pageCount;
+}
+function changeApiPage(direction) {
+  apiCurrentPage += direction;
+  renderApiPage();
+}
+function filterTable() {
+  const query = document.getElementById("search").value.toLowerCase().trim();
+  apiFilteredRows = apiRows.filter(row => row.cells[0].textContent.toLowerCase().includes(query));
+  apiCurrentPage = 1;
+  renderApiPage();
+}
+renderApiPage();
+</script>
+</body>
+</html>
