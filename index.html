@@ -110,11 +110,11 @@ tbody tr:hover{background:#f8faff}
 </aside>
 <div class="app-layout"><main class="content-main">
   <div class="kpis nav-target" id="dashboard">
-    <div class="kpi"><div class="kpi-label">TOTAL REQUESTS</div><div class="kpi-value">2,040</div><div class="kpi-foot">All recorded samples</div></div>
-    <div class="kpi"><div class="kpi-label">SUCCESSFUL</div><div class="kpi-value green">1,947</div><div class="kpi-foot">95.44% pass rate</div></div>
-    <div class="kpi"><div class="kpi-label">FAILED</div><div class="kpi-value red">93</div><div class="kpi-foot">4.56% failure rate</div></div>
-    <div class="kpi"><div class="kpi-label">AVERAGE RESPONSE</div><div class="kpi-value">90.2 <small style="font-size:13px">ms</small></div><div class="kpi-foot">Across all samples</div></div>
-    <div class="kpi"><div class="kpi-label">HITS / SECOND</div><div class="kpi-value">88.29</div><div class="kpi-foot">Overall average rate</div></div>
+    <div class="kpi"><div class="kpi-label">TOTAL REQUESTS</div><div class="kpi-value">3,400</div><div class="kpi-foot">All recorded samples</div></div>
+    <div class="kpi"><div class="kpi-label">SUCCESSFUL</div><div class="kpi-value green">3,247</div><div class="kpi-foot">95.50% pass rate</div></div>
+    <div class="kpi"><div class="kpi-label">FAILED</div><div class="kpi-value red">153</div><div class="kpi-foot">4.50% failure rate</div></div>
+    <div class="kpi"><div class="kpi-label">AVERAGE RESPONSE</div><div class="kpi-value">66.8 <small style="font-size:13px">ms</small></div><div class="kpi-foot">Across all samples</div></div>
+    <div class="kpi"><div class="kpi-label">HITS / SECOND</div><div class="kpi-value">108.11</div><div class="kpi-foot">Overall average rate</div></div>
   </div>
 
   <div class="dashboard-overview">
@@ -123,8 +123,8 @@ tbody tr:hover{background:#f8faff}
       <p class="summary-subtitle">Successful and failed requests across this test run</p>
       <div class="summary-chart"><canvas id="requestSummary"></canvas></div>
       <div class="summary-stats">
-        <div class="summary-stat"><strong class="green">1,947</strong><span>Passed · 95.44%</span></div>
-        <div class="summary-stat"><strong class="red">93</strong><span>Failed · 4.56%</span></div>
+        <div class="summary-stat"><strong class="green">3,247</strong><span>Passed · 95.50%</span></div>
+        <div class="summary-stat"><strong class="red">153</strong><span>Failed · 4.50%</span></div>
       </div>
     </section>
     <section class="summary-panel">
@@ -132,9 +132,9 @@ tbody tr:hover{background:#f8faff}
       <p class="summary-subtitle">At-a-glance performance indicators</p>
       <div class="summary-stats">
         <div class="summary-stat"><strong>136</strong><span>APIs tested</span></div>
-        <div class="summary-stat"><strong>23.1s</strong><span>Test duration</span></div>
-        <div class="summary-stat"><strong>267.0 ms</strong><span>P95 response</span></div>
-        <div class="summary-stat"><strong>88.29</strong><span>Requests/sec</span></div>
+        <div class="summary-stat"><strong>31.4s</strong><span>Test duration</span></div>
+        <div class="summary-stat"><strong>257.0 ms</strong><span>P95 response</span></div>
+        <div class="summary-stat"><strong>108.11</strong><span>Requests/sec</span></div>
       </div>
       <div class="method-summary">
         <div class="method-summary-title">Request Count by HTTP Method</div>
@@ -144,19 +144,19 @@ tbody tr:hover{background:#f8faff}
             <span class="method-name">GET</span>
             <span class="method-label">Requests</span>
         </div>
-        <div class="method-card-value">1,245</div>
+        <div class="method-card-value">2,075</div>
     </div><div class="method-card method-post" aria-label="POST Requests">
         <div class="method-card-head">
             <span class="method-name">POST</span>
             <span class="method-label">Requests</span>
         </div>
-        <div class="method-card-value">405</div>
+        <div class="method-card-value">675</div>
     </div><div class="method-card method-put" aria-label="PUT Requests">
         <div class="method-card-head">
             <span class="method-name">PUT</span>
             <span class="method-label">Requests</span>
         </div>
-        <div class="method-card-value">105</div>
+        <div class="method-card-value">175</div>
     </div><div class="method-card method-delete" aria-label="DELETE Requests">
         <div class="method-card-head">
             <span class="method-name">DELETE</span>
@@ -168,7 +168,7 @@ tbody tr:hover{background:#f8faff}
             <span class="method-name">PATCH</span>
             <span class="method-label">Requests</span>
         </div>
-        <div class="method-card-value">285</div>
+        <div class="method-card-value">475</div>
     </div>
         </div>
         <p class="summary-subtitle" style="margin:9px 0 0">HTTP method counts appear when method data is available.</p>
@@ -183,1089 +183,1089 @@ tbody tr:hover{background:#f8faff}
         <thead><tr><th>API</th><th>Samples</th><th>Average ms</th><th>P90 ms</th><th>P95 ms</th><th>P99 ms</th><th>Errors</th><th>Error %</th><th>Avg response bytes</th><th>Status</th></tr></thead>
         <tbody>
           <tr>
-            <td>authenticate</td><td>15</td>
-            <td>181.5</td><td>227.4</td>
-            <td>343.6</td><td>523.9</td>
+            <td>authenticate</td><td>25</td>
+            <td>179.0</td><td>288.2</td>
+            <td>575.4</td><td>980.4</td>
             <td>0</td><td>0.00%</td>
             <td>1970</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobInterview</td><td>15</td>
-            <td>57.7</td><td>86.0</td>
-            <td>89.5</td><td>92.3</td>
+            <td>getJobInterview</td><td>25</td>
+            <td>41.3</td><td>74.6</td>
+            <td>87.8</td><td>165.5</td>
             <td>0</td><td>0.00%</td>
             <td>1781</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getNtOrganizationSubscriptions</td><td>15</td>
-            <td>363.9</td><td>522.2</td>
-            <td>548.0</td><td>587.2</td>
+            <td>getNtOrganizationSubscriptions</td><td>25</td>
+            <td>397.6</td><td>506.4</td>
+            <td>518.8</td><td>585.4</td>
             <td>0</td><td>0.00%</td>
             <td>1072</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getTemplateById_1</td><td>15</td>
-            <td>54.1</td><td>80.0</td>
-            <td>93.3</td><td>99.5</td>
+            <td>getTemplateById_1</td><td>25</td>
+            <td>24.8</td><td>46.2</td>
+            <td>54.2</td><td>60.3</td>
             <td>0</td><td>0.00%</td>
             <td>2311</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getPreferredCandidate</td><td>15</td>
-            <td>46.9</td><td>59.6</td>
-            <td>69.8</td><td>84.4</td>
+            <td>getPreferredCandidate</td><td>25</td>
+            <td>34.8</td><td>59.2</td>
+            <td>71.2</td><td>187.2</td>
             <td>0</td><td>0.00%</td>
             <td>1399</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updatePreferredCandidate</td><td>15</td>
-            <td>52.7</td><td>71.8</td>
-            <td>82.0</td><td>98.8</td>
+            <td>updatePreferredCandidate</td><td>25</td>
+            <td>27.6</td><td>47.0</td>
+            <td>57.0</td><td>59.0</td>
             <td>0</td><td>0.00%</td>
             <td>1182</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>Position</td><td>15</td>
-            <td>71.7</td><td>88.8</td>
-            <td>122.0</td><td>178.0</td>
+            <td>Position</td><td>25</td>
+            <td>43.6</td><td>70.2</td>
+            <td>96.6</td><td>109.6</td>
             <td>0</td><td>0.00%</td>
             <td>1497</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateMyJobs</td><td>15</td>
-            <td>51.7</td><td>70.2</td>
-            <td>77.3</td><td>89.1</td>
+            <td>getCandidateMyJobs</td><td>25</td>
+            <td>34.4</td><td>56.6</td>
+            <td>61.4</td><td>196.5</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAllCountryDialCodes</td><td>15</td>
-            <td>81.5</td><td>108.4</td>
-            <td>119.7</td><td>130.3</td>
+            <td>getAllCountryDialCodes</td><td>25</td>
+            <td>37.0</td><td>56.2</td>
+            <td>83.4</td><td>233.4</td>
             <td>0</td><td>0.00%</td>
-            <td>17244</td>
+            <td>17240</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getUserStats</td><td>15</td>
-            <td>97.7</td><td>140.4</td>
-            <td>246.6</td><td>438.1</td>
+            <td>getUserStats</td><td>25</td>
+            <td>48.0</td><td>79.8</td>
+            <td>115.0</td><td>151.1</td>
             <td>0</td><td>0.00%</td>
             <td>1334</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getOrganizationSubscriptionHistory</td><td>15</td>
-            <td>72.9</td><td>86.0</td>
-            <td>175.9</td><td>340.0</td>
+            <td>getOrganizationSubscriptionHistory</td><td>25</td>
+            <td>24.2</td><td>47.0</td>
+            <td>64.2</td><td>83.2</td>
             <td>0</td><td>0.00%</td>
             <td>1263</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>validateNewUser</td><td>15</td>
-            <td>50.1</td><td>73.2</td>
-            <td>81.7</td><td>92.3</td>
+            <td>validateNewUser</td><td>25</td>
+            <td>37.8</td><td>52.6</td>
+            <td>123.4</td><td>271.0</td>
             <td>0</td><td>0.00%</td>
             <td>1145</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getNotificationList</td><td>15</td>
-            <td>49.0</td><td>76.4</td>
-            <td>84.5</td><td>92.9</td>
+            <td>getNotificationList</td><td>25</td>
+            <td>38.1</td><td>64.2</td>
+            <td>135.8</td><td>207.5</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateNotificationStatus</td><td>15</td>
-            <td>47.8</td><td>69.6</td>
-            <td>80.1</td><td>84.0</td>
+            <td>updateNotificationStatus</td><td>25</td>
+            <td>36.4</td><td>50.2</td>
+            <td>198.2</td><td>234.3</td>
             <td>0</td><td>0.00%</td>
             <td>1187</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getPlan</td><td>15</td>
-            <td>59.5</td><td>87.4</td>
-            <td>93.3</td><td>93.9</td>
+            <td>getPlan</td><td>25</td>
+            <td>27.3</td><td>58.4</td>
+            <td>72.0</td><td>76.0</td>
             <td>0</td><td>0.00%</td>
             <td>1773</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAvailability</td><td>15</td>
-            <td>54.3</td><td>88.6</td>
-            <td>99.5</td><td>107.9</td>
+            <td>getAvailability</td><td>25</td>
+            <td>25.5</td><td>57.0</td>
+            <td>57.8</td><td>58.8</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>archiveAvailability</td><td>15</td>
-            <td>60.9</td><td>99.8</td>
-            <td>104.6</td><td>111.3</td>
+            <td>archiveAvailability</td><td>25</td>
+            <td>40.6</td><td>58.4</td>
+            <td>78.0</td><td>228.7</td>
             <td>0</td><td>0.00%</td>
             <td>1044</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getSignupCounts</td><td>15</td>
-            <td>73.9</td><td>93.0</td>
-            <td>183.3</td><td>340.7</td>
+            <td>getSignupCounts</td><td>25</td>
+            <td>29.9</td><td>58.6</td>
+            <td>61.0</td><td>64.0</td>
             <td>0</td><td>0.00%</td>
             <td>1155</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAllUsers</td><td>15</td>
-            <td>159.5</td><td>295.6</td>
-            <td>329.2</td><td>342.6</td>
+            <td>getAllUsers</td><td>25</td>
+            <td>67.2</td><td>121.8</td>
+            <td>126.6</td><td>146.0</td>
             <td>0</td><td>0.00%</td>
-            <td>95202</td>
+            <td>95191</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAllUsersFiltered</td><td>15</td>
-            <td>103.7</td><td>160.4</td>
-            <td>194.4</td><td>210.1</td>
+            <td>getAllUsersFiltered</td><td>25</td>
+            <td>85.1</td><td>123.2</td>
+            <td>128.8</td><td>136.8</td>
             <td>0</td><td>0.00%</td>
             <td>1537</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAllJobs</td><td>15</td>
-            <td>88.9</td><td>108.2</td>
-            <td>116.2</td><td>129.6</td>
+            <td>getAllJobs</td><td>25</td>
+            <td>60.0</td><td>87.6</td>
+            <td>93.6</td><td>98.0</td>
             <td>0</td><td>0.00%</td>
             <td>1053</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateCommunicationStatus</td><td>15</td>
-            <td>87.7</td><td>103.4</td>
-            <td>257.2</td><td>489.0</td>
-            <td>1</td><td>6.67%</td>
+            <td>updateCommunicationStatus</td><td>25</td>
+            <td>47.7</td><td>66.2</td>
+            <td>77.4</td><td>213.8</td>
+            <td>1</td><td>4.00%</td>
             <td>1144</td>
             <td><span class="status-pill status-fail">HAS FAILURES</span></td>
           </tr>
           <tr>
-            <td>updateUserProfile</td><td>15</td>
-            <td>53.5</td><td>70.4</td>
-            <td>83.7</td><td>105.5</td>
+            <td>updateUserProfile</td><td>25</td>
+            <td>45.1</td><td>82.0</td>
+            <td>213.6</td><td>255.6</td>
             <td>0</td><td>0.00%</td>
             <td>1175</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getTrashedImages</td><td>15</td>
-            <td>69.1</td><td>89.4</td>
-            <td>120.0</td><td>170.4</td>
+            <td>getTrashedImages</td><td>25</td>
+            <td>77.2</td><td>214.0</td>
+            <td>280.0</td><td>317.4</td>
             <td>0</td><td>0.00%</td>
             <td>18738</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateMyJobsCount</td><td>15</td>
-            <td>48.3</td><td>71.6</td>
-            <td>83.8</td><td>87.2</td>
+            <td>getCandidateMyJobsCount</td><td>25</td>
+            <td>45.4</td><td>91.4</td>
+            <td>227.4</td><td>268.6</td>
             <td>0</td><td>0.00%</td>
             <td>1045</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getWorkflowDetail</td><td>15</td>
-            <td>84.4</td><td>150.4</td>
-            <td>179.3</td><td>185.5</td>
+            <td>getWorkflowDetail</td><td>25</td>
+            <td>72.0</td><td>123.4</td>
+            <td>149.0</td><td>260.6</td>
             <td>0</td><td>0.00%</td>
-            <td>4616</td>
+            <td>4615</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getSavedAddresses</td><td>15</td>
-            <td>55.3</td><td>70.6</td>
-            <td>80.9</td><td>99.4</td>
+            <td>getSavedAddresses</td><td>25</td>
+            <td>25.4</td><td>50.6</td>
+            <td>57.8</td><td>72.4</td>
             <td>0</td><td>0.00%</td>
             <td>1535</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getUserHistory</td><td>15</td>
-            <td>50.7</td><td>60.6</td>
-            <td>76.9</td><td>106.6</td>
+            <td>getUserHistory</td><td>25</td>
+            <td>25.8</td><td>48.6</td>
+            <td>55.0</td><td>64.4</td>
             <td>0</td><td>0.00%</td>
             <td>2123</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateUserEmailAndPhone</td><td>15</td>
-            <td>56.1</td><td>94.4</td>
-            <td>100.7</td><td>105.7</td>
-            <td>15</td><td>100.00%</td>
+            <td>updateUserEmailAndPhone</td><td>25</td>
+            <td>35.8</td><td>66.6</td>
+            <td>72.2</td><td>73.8</td>
+            <td>25</td><td>100.00%</td>
             <td>1183</td>
             <td><span class="status-pill status-fail">HAS FAILURES</span></td>
           </tr>
           <tr>
-            <td>getPreference</td><td>15</td>
-            <td>46.3</td><td>72.2</td>
-            <td>80.2</td><td>82.4</td>
+            <td>getPreference</td><td>25</td>
+            <td>46.9</td><td>103.6</td>
+            <td>232.4</td><td>273.0</td>
             <td>0</td><td>0.00%</td>
             <td>1297</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateCalendar</td><td>15</td>
-            <td>55.9</td><td>82.6</td>
-            <td>97.7</td><td>113.9</td>
+            <td>getCandidateCalendar</td><td>25</td>
+            <td>45.7</td><td>73.2</td>
+            <td>132.8</td><td>245.8</td>
             <td>0</td><td>0.00%</td>
             <td>1040</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>searchJobs</td><td>15</td>
-            <td>63.2</td><td>92.4</td>
-            <td>96.3</td><td>96.9</td>
+            <td>searchJobs</td><td>25</td>
+            <td>56.1</td><td>109.6</td>
+            <td>127.6</td><td>228.8</td>
             <td>0</td><td>0.00%</td>
             <td>1022</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getConversation</td><td>15</td>
-            <td>48.9</td><td>70.2</td>
-            <td>86.7</td><td>97.3</td>
+            <td>getConversation</td><td>25</td>
+            <td>33.8</td><td>59.4</td>
+            <td>61.8</td><td>213.2</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateRequests</td><td>15</td>
-            <td>57.8</td><td>77.8</td>
-            <td>87.7</td><td>103.9</td>
+            <td>getCandidateRequests</td><td>25</td>
+            <td>32.4</td><td>55.8</td>
+            <td>57.8</td><td>63.3</td>
             <td>0</td><td>0.00%</td>
             <td>1017</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateUserDetails</td><td>15</td>
-            <td>52.9</td><td>79.2</td>
-            <td>91.0</td><td>96.6</td>
-            <td>15</td><td>100.00%</td>
+            <td>updateUserDetails</td><td>25</td>
+            <td>28.2</td><td>56.8</td>
+            <td>60.0</td><td>68.4</td>
+            <td>25</td><td>100.00%</td>
             <td>1158</td>
             <td><span class="status-pill status-fail">HAS FAILURES</span></td>
           </tr>
           <tr>
-            <td>patchJobInterviewStatus</td><td>15</td>
-            <td>49.9</td><td>60.8</td>
-            <td>71.7</td><td>82.3</td>
+            <td>patchJobInterviewStatus</td><td>25</td>
+            <td>30.0</td><td>63.6</td>
+            <td>66.0</td><td>73.6</td>
             <td>0</td><td>0.00%</td>
             <td>1176</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateWorkflowJobs</td><td>15</td>
-            <td>58.5</td><td>77.6</td>
-            <td>91.7</td><td>113.5</td>
+            <td>getCandidateWorkflowJobs</td><td>25</td>
+            <td>60.3</td><td>249.2</td>
+            <td>271.2</td><td>278.8</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getOrganizationPlans</td><td>15</td>
-            <td>71.4</td><td>102.6</td>
-            <td>111.9</td><td>124.8</td>
+            <td>getOrganizationPlans</td><td>25</td>
+            <td>41.7</td><td>77.0</td>
+            <td>113.8</td><td>123.5</td>
             <td>0</td><td>0.00%</td>
             <td>2576</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getNtOrganizationSubscriptionLocations</td><td>15</td>
-            <td>273.7</td><td>338.8</td>
-            <td>375.5</td><td>411.9</td>
+            <td>getNtOrganizationSubscriptionLocations</td><td>25</td>
+            <td>263.4</td><td>321.4</td>
+            <td>332.6</td><td>479.7</td>
             <td>0</td><td>0.00%</td>
             <td>2260</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getNtOrganizationSubscriptionDetails</td><td>15</td>
-            <td>91.5</td><td>140.4</td>
-            <td>256.6</td><td>425.7</td>
+            <td>getNtOrganizationSubscriptionDetails</td><td>25</td>
+            <td>30.4</td><td>58.4</td>
+            <td>81.6</td><td>111.8</td>
             <td>0</td><td>0.00%</td>
             <td>1507</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getUserResource</td><td>15</td>
-            <td>55.5</td><td>84.2</td>
-            <td>90.6</td><td>97.3</td>
+            <td>getUserResource</td><td>25</td>
+            <td>22.6</td><td>50.8</td>
+            <td>60.0</td><td>61.0</td>
             <td>0</td><td>0.00%</td>
             <td>1413</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateWorkflowCount</td><td>15</td>
-            <td>64.4</td><td>91.0</td>
-            <td>97.3</td><td>97.9</td>
+            <td>getCandidateWorkflowCount</td><td>25</td>
+            <td>38.9</td><td>65.2</td>
+            <td>83.6</td><td>195.2</td>
             <td>0</td><td>0.00%</td>
             <td>1076</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateJobs</td><td>15</td>
-            <td>75.9</td><td>102.0</td>
-            <td>107.0</td><td>112.6</td>
+            <td>getCandidateJobs</td><td>25</td>
+            <td>39.2</td><td>76.0</td>
+            <td>76.8</td><td>83.8</td>
             <td>0</td><td>0.00%</td>
             <td>2646</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getInvitesForCandidate</td><td>15</td>
-            <td>80.2</td><td>103.0</td>
-            <td>115.0</td><td>126.2</td>
+            <td>getInvitesForCandidate</td><td>25</td>
+            <td>72.6</td><td>104.8</td>
+            <td>246.0</td><td>295.4</td>
             <td>0</td><td>0.00%</td>
             <td>1053</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getStatusCount</td><td>15</td>
-            <td>73.0</td><td>145.4</td>
-            <td>198.2</td><td>256.4</td>
+            <td>getStatusCount</td><td>25</td>
+            <td>30.7</td><td>44.0</td>
+            <td>85.6</td><td>217.9</td>
             <td>0</td><td>0.00%</td>
             <td>1056</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>setPreferredAddress</td><td>15</td>
-            <td>72.2</td><td>99.6</td>
-            <td>102.4</td><td>106.9</td>
-            <td>1</td><td>6.67%</td>
+            <td>setPreferredAddress</td><td>25</td>
+            <td>57.0</td><td>80.0</td>
+            <td>142.8</td><td>258.3</td>
+            <td>0</td><td>0.00%</td>
             <td>1180</td>
-            <td><span class="status-pill status-fail">HAS FAILURES</span></td>
+            <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobApplicants</td><td>15</td>
-            <td>64.3</td><td>90.2</td>
-            <td>118.8</td><td>167.0</td>
+            <td>getJobApplicants</td><td>25</td>
+            <td>37.4</td><td>68.6</td>
+            <td>93.0</td><td>194.0</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>primarySmsCallback</td><td>15</td>
-            <td>47.1</td><td>70.6</td>
-            <td>77.3</td><td>77.9</td>
+            <td>primarySmsCallback</td><td>25</td>
+            <td>31.9</td><td>56.8</td>
+            <td>73.6</td><td>207.7</td>
             <td>0</td><td>0.00%</td>
             <td>1059</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>parseResume</td><td>15</td>
-            <td>306.5</td><td>472.0</td>
-            <td>695.5</td><td>922.3</td>
+            <td>parseResume</td><td>25</td>
+            <td>188.2</td><td>276.6</td>
+            <td>423.4</td><td>499.1</td>
             <td>0</td><td>0.00%</td>
             <td>1152</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getSubscriptionDetails</td><td>15</td>
-            <td>65.8</td><td>94.4</td>
-            <td>122.6</td><td>168.5</td>
+            <td>getSubscriptionDetails</td><td>25</td>
+            <td>27.1</td><td>54.2</td>
+            <td>60.2</td><td>62.5</td>
             <td>0</td><td>0.00%</td>
             <td>1540</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getArchivedAvailability</td><td>15</td>
-            <td>51.3</td><td>66.0</td>
-            <td>75.9</td><td>94.4</td>
+            <td>getArchivedAvailability</td><td>25</td>
+            <td>28.7</td><td>54.0</td>
+            <td>81.2</td><td>116.9</td>
             <td>0</td><td>0.00%</td>
             <td>2352</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAppliedCandidates</td><td>15</td>
-            <td>53.8</td><td>70.8</td>
-            <td>84.6</td><td>96.9</td>
+            <td>getAppliedCandidates</td><td>25</td>
+            <td>46.6</td><td>80.2</td>
+            <td>100.2</td><td>145.3</td>
             <td>0</td><td>0.00%</td>
             <td>1104</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getOrganizationRecentUpdates</td><td>15</td>
-            <td>71.1</td><td>108.8</td>
-            <td>173.9</td><td>282.0</td>
+            <td>getOrganizationRecentUpdates</td><td>25</td>
+            <td>20.7</td><td>32.6</td>
+            <td>46.6</td><td>58.4</td>
             <td>0</td><td>0.00%</td>
             <td>1025</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>addUserMobileDetails</td><td>15</td>
-            <td>55.6</td><td>86.0</td>
-            <td>100.1</td><td>115.2</td>
-            <td>0</td><td>0.00%</td>
-            <td>1179</td>
-            <td><span class="status-pill status-pass">PASS</span></td>
-          </tr>
-          <tr>
-            <td>deactivateByMobileId</td><td>15</td>
-            <td>58.4</td><td>89.0</td>
-            <td>92.5</td><td>95.3</td>
+            <td>addUserMobileDetails</td><td>25</td>
+            <td>39.8</td><td>76.8</td>
+            <td>81.2</td><td>85.8</td>
             <td>0</td><td>0.00%</td>
             <td>1182</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>uploadResumeFile</td><td>15</td>
-            <td>616.6</td><td>911.2</td>
-            <td>1012.9</td><td>1048.2</td>
+            <td>deactivateByMobileId</td><td>25</td>
+            <td>42.5</td><td>99.8</td>
+            <td>104.2</td><td>120.2</td>
+            <td>0</td><td>0.00%</td>
+            <td>1182</td>
+            <td><span class="status-pill status-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>uploadResumeFile</td><td>25</td>
+            <td>241.1</td><td>308.4</td>
+            <td>406.4</td><td>551.6</td>
             <td>0</td><td>0.00%</td>
             <td>1136</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobsWorkflowCount</td><td>15</td>
-            <td>52.9</td><td>87.4</td>
-            <td>96.6</td><td>103.3</td>
+            <td>getJobsWorkflowCount</td><td>25</td>
+            <td>34.5</td><td>59.0</td>
+            <td>77.0</td><td>220.9</td>
             <td>0</td><td>0.00%</td>
             <td>1152</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getRecommendedCandidates</td><td>15</td>
-            <td>131.6</td><td>190.2</td>
-            <td>241.8</td><td>318.0</td>
+            <td>getRecommendedCandidates</td><td>25</td>
+            <td>83.3</td><td>167.6</td>
+            <td>192.0</td><td>204.4</td>
             <td>0</td><td>0.00%</td>
             <td>18030</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getTimesheetDetails</td><td>15</td>
-            <td>50.4</td><td>69.4</td>
-            <td>91.1</td><td>128.6</td>
+            <td>getTimesheetDetails</td><td>25</td>
+            <td>25.7</td><td>40.8</td>
+            <td>50.8</td><td>116.1</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getDashboardRecommendedJobs</td><td>15</td>
-            <td>91.4</td><td>160.4</td>
-            <td>232.9</td><td>301.8</td>
+            <td>getDashboardRecommendedJobs</td><td>25</td>
+            <td>46.6</td><td>74.0</td>
+            <td>88.0</td><td>224.0</td>
             <td>0</td><td>0.00%</td>
             <td>1341</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getRecommendedJobs</td><td>15</td>
-            <td>72.7</td><td>104.4</td>
-            <td>108.6</td><td>109.7</td>
+            <td>getRecommendedJobs</td><td>25</td>
+            <td>50.6</td><td>73.6</td>
+            <td>102.0</td><td>258.7</td>
             <td>0</td><td>0.00%</td>
             <td>1804</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>handleGoogleCallback</td><td>15</td>
-            <td>185.0</td><td>272.0</td>
-            <td>282.3</td><td>282.9</td>
+            <td>handleGoogleCallback</td><td>25</td>
+            <td>148.0</td><td>251.8</td>
+            <td>347.0</td><td>936.1</td>
             <td>0</td><td>0.00%</td>
             <td>22413</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>handleGoogleCallback-0</td><td>15</td>
-            <td>52.1</td><td>94.0</td>
-            <td>101.4</td><td>111.5</td>
+            <td>handleGoogleCallback-0</td><td>25</td>
+            <td>22.6</td><td>40.6</td>
+            <td>49.8</td><td>60.1</td>
             <td>0</td><td>0.00%</td>
             <td>1095</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>handleGoogleCallback-1</td><td>15</td>
-            <td>131.3</td><td>179.2</td>
-            <td>184.6</td><td>185.7</td>
+            <td>handleGoogleCallback-1</td><td>25</td>
+            <td>123.9</td><td>230.4</td>
+            <td>329.6</td><td>906.4</td>
             <td>0</td><td>0.00%</td>
             <td>21318</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getUsersByLocation</td><td>15</td>
-            <td>45.6</td><td>80.4</td>
-            <td>120.7</td><td>170.5</td>
+            <td>getUsersByLocation</td><td>25</td>
+            <td>14.7</td><td>24.2</td>
+            <td>26.6</td><td>33.8</td>
             <td>0</td><td>0.00%</td>
             <td>3756</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getApprovalRequestCount</td><td>15</td>
-            <td>71.9</td><td>90.4</td>
-            <td>136.5</td><td>212.1</td>
+            <td>getApprovalRequestCount</td><td>25</td>
+            <td>29.2</td><td>44.4</td>
+            <td>58.8</td><td>188.2</td>
             <td>0</td><td>0.00%</td>
             <td>1080</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>generateEmailOtp</td><td>15</td>
-            <td>63.4</td><td>93.6</td>
-            <td>97.0</td><td>102.6</td>
+            <td>generateEmailOtp</td><td>25</td>
+            <td>62.2</td><td>106.2</td>
+            <td>237.0</td><td>300.4</td>
             <td>0</td><td>0.00%</td>
             <td>1170</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getByPincode</td><td>15</td>
-            <td>44.3</td><td>82.8</td>
-            <td>86.3</td><td>86.9</td>
+            <td>getByPincode</td><td>25</td>
+            <td>27.2</td><td>35.6</td>
+            <td>54.0</td><td>239.4</td>
             <td>0</td><td>0.00%</td>
             <td>1082</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getBillingDetails</td><td>15</td>
-            <td>54.3</td><td>87.2</td>
-            <td>94.3</td><td>94.9</td>
+            <td>getBillingDetails</td><td>25</td>
+            <td>33.1</td><td>44.6</td>
+            <td>127.8</td><td>223.0</td>
             <td>0</td><td>0.00%</td>
             <td>1376</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>upsertBillingDetails</td><td>15</td>
-            <td>54.5</td><td>94.2</td>
-            <td>95.0</td><td>95.0</td>
+            <td>upsertBillingDetails</td><td>25</td>
+            <td>29.9</td><td>58.0</td>
+            <td>74.4</td><td>138.0</td>
             <td>0</td><td>0.00%</td>
             <td>1191</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateJobStatus</td><td>15</td>
-            <td>56.2</td><td>88.8</td>
-            <td>92.1</td><td>96.0</td>
+            <td>updateJobStatus</td><td>25</td>
+            <td>30.3</td><td>59.6</td>
+            <td>70.4</td><td>100.1</td>
             <td>0</td><td>0.00%</td>
             <td>1166</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateRecentUpdates</td><td>15</td>
-            <td>46.8</td><td>67.8</td>
-            <td>77.1</td><td>81.0</td>
+            <td>getCandidateRecentUpdates</td><td>25</td>
+            <td>40.0</td><td>52.0</td>
+            <td>218.8</td><td>281.3</td>
             <td>0</td><td>0.00%</td>
             <td>1025</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getFeedback</td><td>15</td>
-            <td>52.1</td><td>66.6</td>
-            <td>77.5</td><td>97.1</td>
+            <td>getFeedback</td><td>25</td>
+            <td>25.9</td><td>32.6</td>
+            <td>52.2</td><td>74.5</td>
             <td>0</td><td>0.00%</td>
             <td>1216</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateFeedback</td><td>15</td>
-            <td>120.8</td><td>351.8</td>
-            <td>442.0</td><td>548.4</td>
+            <td>updateFeedback</td><td>25</td>
+            <td>37.7</td><td>58.2</td>
+            <td>109.8</td><td>201.0</td>
             <td>0</td><td>0.00%</td>
             <td>1171</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobTemplates</td><td>15</td>
-            <td>63.3</td><td>109.0</td>
-            <td>119.3</td><td>119.9</td>
+            <td>getJobTemplates</td><td>25</td>
+            <td>33.2</td><td>63.4</td>
+            <td>83.4</td><td>90.0</td>
             <td>0</td><td>0.00%</td>
             <td>1856</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateJobTemplate</td><td>15</td>
-            <td>68.5</td><td>108.6</td>
-            <td>115.8</td><td>124.8</td>
-            <td>1</td><td>6.67%</td>
+            <td>updateJobTemplate</td><td>25</td>
+            <td>66.9</td><td>153.0</td>
+            <td>196.6</td><td>203.3</td>
+            <td>2</td><td>8.00%</td>
             <td>1174</td>
             <td><span class="status-pill status-fail">HAS FAILURES</span></td>
           </tr>
           <tr>
-            <td>deactivateJobTemplate</td><td>15</td>
-            <td>43.9</td><td>66.6</td>
-            <td>76.6</td><td>83.3</td>
+            <td>deactivateJobTemplate</td><td>25</td>
+            <td>52.4</td><td>76.2</td>
+            <td>133.8</td><td>311.4</td>
             <td>0</td><td>0.00%</td>
             <td>1175</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>createOrder</td><td>15</td>
-            <td>64.2</td><td>114.4</td>
-            <td>157.2</td><td>204.2</td>
-            <td>15</td><td>100.00%</td>
+            <td>createOrder</td><td>25</td>
+            <td>65.8</td><td>148.0</td>
+            <td>230.0</td><td>267.3</td>
+            <td>25</td><td>100.00%</td>
             <td>1191</td>
             <td><span class="status-pill status-fail">HAS FAILURES</span></td>
           </tr>
           <tr>
-            <td>getAllProfessions</td><td>15</td>
-            <td>36.9</td><td>61.6</td>
-            <td>69.9</td><td>77.2</td>
+            <td>getAllProfessions</td><td>25</td>
+            <td>37.2</td><td>78.6</td>
+            <td>198.6</td><td>252.1</td>
             <td>0</td><td>0.00%</td>
             <td>1381</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getResumes</td><td>15</td>
-            <td>47.3</td><td>79.2</td>
-            <td>91.9</td><td>99.2</td>
+            <td>getResumes</td><td>25</td>
+            <td>19.2</td><td>29.0</td>
+            <td>36.2</td><td>59.0</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAvailabilityDates</td><td>15</td>
-            <td>44.9</td><td>72.6</td>
-            <td>73.3</td><td>73.9</td>
+            <td>getAvailabilityDates</td><td>25</td>
+            <td>43.2</td><td>77.4</td>
+            <td>92.6</td><td>215.8</td>
             <td>0</td><td>0.00%</td>
             <td>1026</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateViewStatus</td><td>15</td>
-            <td>53.5</td><td>89.0</td>
-            <td>100.6</td><td>118.5</td>
+            <td>updateViewStatus</td><td>25</td>
+            <td>26.6</td><td>49.6</td>
+            <td>57.2</td><td>59.8</td>
             <td>0</td><td>0.00%</td>
             <td>1175</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getOrganizationBanner</td><td>15</td>
-            <td>49.9</td><td>83.6</td>
-            <td>94.8</td><td>103.8</td>
+            <td>getOrganizationBanner</td><td>25</td>
+            <td>21.8</td><td>33.8</td>
+            <td>55.4</td><td>68.4</td>
             <td>0</td><td>0.00%</td>
             <td>1304</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>generatePresignedUrl</td><td>15</td>
-            <td>46.5</td><td>87.6</td>
-            <td>112.0</td><td>134.4</td>
+            <td>generatePresignedUrl</td><td>25</td>
+            <td>43.5</td><td>63.0</td>
+            <td>134.6</td><td>261.4</td>
             <td>0</td><td>0.00%</td>
             <td>1422</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>generateMobileOtp</td><td>15</td>
-            <td>60.4</td><td>88.2</td>
-            <td>93.8</td><td>102.8</td>
+            <td>generateMobileOtp</td><td>25</td>
+            <td>55.3</td><td>112.4</td>
+            <td>115.6</td><td>227.7</td>
             <td>0</td><td>0.00%</td>
             <td>1170</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getProfessionAndCollegeList</td><td>15</td>
-            <td>57.3</td><td>97.2</td>
-            <td>103.1</td><td>112.6</td>
-            <td>15</td><td>100.00%</td>
+            <td>getProfessionAndCollegeList</td><td>25</td>
+            <td>59.0</td><td>99.2</td>
+            <td>219.2</td><td>297.4</td>
+            <td>25</td><td>100.00%</td>
             <td>1175</td>
             <td><span class="status-pill status-fail">HAS FAILURES</span></td>
           </tr>
           <tr>
-            <td>authenticateUser</td><td>15</td>
-            <td>76.7</td><td>104.2</td>
-            <td>117.6</td><td>141.1</td>
-            <td>15</td><td>100.00%</td>
+            <td>authenticateUser</td><td>25</td>
+            <td>69.7</td><td>191.8</td>
+            <td>253.0</td><td>256.8</td>
+            <td>25</td><td>100.00%</td>
             <td>1164</td>
             <td><span class="status-pill status-fail">HAS FAILURES</span></td>
           </tr>
           <tr>
-            <td>getOrganizationActionRequired</td><td>15</td>
-            <td>53.3</td><td>75.6</td>
-            <td>85.6</td><td>103.5</td>
+            <td>getOrganizationActionRequired</td><td>25</td>
+            <td>54.2</td><td>78.8</td>
+            <td>229.6</td><td>285.2</td>
             <td>0</td><td>0.00%</td>
             <td>1086</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getTemplateById</td><td>15</td>
-            <td>58.1</td><td>95.2</td>
-            <td>103.1</td><td>112.6</td>
+            <td>getTemplateById</td><td>25</td>
+            <td>35.5</td><td>55.2</td>
+            <td>64.8</td><td>204.6</td>
             <td>0</td><td>0.00%</td>
             <td>1527</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>patchDeactivateTemplates</td><td>15</td>
-            <td>59.4</td><td>95.8</td>
-            <td>98.5</td><td>101.3</td>
+            <td>patchDeactivateTemplates</td><td>25</td>
+            <td>18.8</td><td>25.2</td>
+            <td>34.0</td><td>50.4</td>
             <td>0</td><td>0.00%</td>
             <td>1184</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getTimesheetSummary</td><td>15</td>
-            <td>86.8</td><td>198.6</td>
-            <td>267.3</td><td>267.9</td>
+            <td>getTimesheetSummary</td><td>25</td>
+            <td>18.4</td><td>29.2</td>
+            <td>30.0</td><td>53.6</td>
             <td>0</td><td>0.00%</td>
             <td>1102</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAllOrganizationTypes</td><td>15</td>
-            <td>36.8</td><td>51.6</td>
-            <td>62.5</td><td>82.1</td>
+            <td>getAllOrganizationTypes</td><td>25</td>
+            <td>26.4</td><td>49.6</td>
+            <td>53.2</td><td>202.2</td>
             <td>0</td><td>0.00%</td>
             <td>1246</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getOrganizations</td><td>15</td>
-            <td>81.3</td><td>112.4</td>
-            <td>206.9</td><td>354.2</td>
-            <td>15</td><td>100.00%</td>
+            <td>getOrganizations</td><td>25</td>
+            <td>31.1</td><td>63.8</td>
+            <td>71.0</td><td>125.7</td>
+            <td>25</td><td>100.00%</td>
             <td>1177</td>
             <td><span class="status-pill status-fail">HAS FAILURES</span></td>
           </tr>
           <tr>
-            <td>getNotificationFrequency</td><td>15</td>
-            <td>74.5</td><td>88.6</td>
-            <td>198.2</td><td>402.0</td>
+            <td>getNotificationFrequency</td><td>25</td>
+            <td>41.7</td><td>46.0</td>
+            <td>203.6</td><td>248.8</td>
             <td>0</td><td>0.00%</td>
             <td>1116</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateNotificationFrequency</td><td>15</td>
-            <td>53.6</td><td>89.4</td>
-            <td>91.3</td><td>91.9</td>
+            <td>updateNotificationFrequency</td><td>25</td>
+            <td>34.3</td><td>56.4</td>
+            <td>76.4</td><td>193.0</td>
             <td>0</td><td>0.00%</td>
             <td>1145</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getOrganizationById</td><td>15</td>
-            <td>43.9</td><td>68.2</td>
-            <td>78.7</td><td>89.3</td>
+            <td>getOrganizationById</td><td>25</td>
+            <td>33.8</td><td>56.6</td>
+            <td>65.0</td><td>236.2</td>
             <td>0</td><td>0.00%</td>
             <td>1782</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateOrganizationAssets</td><td>15</td>
-            <td>54.5</td><td>79.6</td>
-            <td>105.3</td><td>145.1</td>
+            <td>updateOrganizationAssets</td><td>25</td>
+            <td>37.2</td><td>76.6</td>
+            <td>86.6</td><td>140.4</td>
             <td>0</td><td>0.00%</td>
             <td>1183</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>search</td><td>15</td>
-            <td>45.5</td><td>70.6</td>
-            <td>73.3</td><td>73.9</td>
+            <td>search</td><td>25</td>
+            <td>23.5</td><td>42.2</td>
+            <td>54.2</td><td>60.3</td>
             <td>0</td><td>0.00%</td>
             <td>1438</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>generateWithAI</td><td>15</td>
-            <td>1908.3</td><td>2234.4</td>
-            <td>2425.0</td><td>2688.2</td>
+            <td>generateWithAI</td><td>25</td>
+            <td>1716.4</td><td>1969.4</td>
+            <td>2098.6</td><td>2142.7</td>
             <td>0</td><td>0.00%</td>
-            <td>1662</td>
+            <td>1640</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getNotificationCount</td><td>15</td>
-            <td>46.7</td><td>94.0</td>
-            <td>104.9</td><td>117.8</td>
+            <td>getNotificationCount</td><td>25</td>
+            <td>19.2</td><td>38.2</td>
+            <td>45.0</td><td>63.2</td>
             <td>0</td><td>0.00%</td>
             <td>1028</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobLocations</td><td>15</td>
-            <td>111.0</td><td>233.2</td>
-            <td>289.8</td><td>315.6</td>
+            <td>getJobLocations</td><td>25</td>
+            <td>76.0</td><td>117.6</td>
+            <td>140.0</td><td>154.4</td>
             <td>0</td><td>0.00%</td>
             <td>2384</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getInvitedCandidates</td><td>15</td>
-            <td>73.9</td><td>130.8</td>
-            <td>134.9</td><td>136.6</td>
+            <td>getInvitedCandidates</td><td>25</td>
+            <td>74.8</td><td>222.4</td>
+            <td>268.0</td><td>285.4</td>
             <td>0</td><td>0.00%</td>
             <td>2181</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>inviteCandidate</td><td>15</td>
-            <td>61.3</td><td>104.2</td>
-            <td>137.8</td><td>191.6</td>
+            <td>inviteCandidate</td><td>25</td>
+            <td>36.1</td><td>63.2</td>
+            <td>67.2</td><td>107.5</td>
             <td>0</td><td>0.00%</td>
             <td>1187</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getUpcomingInterviews</td><td>15</td>
-            <td>79.8</td><td>108.8</td>
-            <td>214.6</td><td>406.1</td>
+            <td>getUpcomingInterviews</td><td>25</td>
+            <td>32.0</td><td>54.0</td>
+            <td>59.2</td><td>60.8</td>
             <td>0</td><td>0.00%</td>
             <td>1059</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getDashboardMyJobs</td><td>15</td>
-            <td>41.9</td><td>87.8</td>
-            <td>93.2</td><td>101.0</td>
+            <td>getDashboardMyJobs</td><td>25</td>
+            <td>25.3</td><td>37.6</td>
+            <td>44.4</td><td>121.0</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getProfileFields</td><td>15</td>
-            <td>38.9</td><td>80.0</td>
-            <td>91.7</td><td>113.5</td>
+            <td>getProfileFields</td><td>25</td>
+            <td>19.8</td><td>46.0</td>
+            <td>51.6</td><td>55.8</td>
             <td>0</td><td>0.00%</td>
             <td>1234</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getResume</td><td>15</td>
-            <td>48.5</td><td>94.4</td>
-            <td>99.0</td><td>104.6</td>
+            <td>getResume</td><td>25</td>
+            <td>34.8</td><td>64.8</td>
+            <td>72.4</td><td>85.4</td>
             <td>0</td><td>0.00%</td>
             <td>5474</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>extractJobDescription</td><td>15</td>
-            <td>371.7</td><td>747.6</td>
-            <td>832.2</td><td>884.8</td>
+            <td>extractJobDescription</td><td>25</td>
+            <td>271.8</td><td>533.0</td>
+            <td>623.4</td><td>638.6</td>
             <td>0</td><td>0.00%</td>
             <td>4985</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAllTemplates</td><td>15</td>
-            <td>605.9</td><td>1156.4</td>
-            <td>1390.9</td><td>1583.0</td>
+            <td>getAllTemplates</td><td>25</td>
+            <td>507.2</td><td>863.0</td>
+            <td>1042.6</td><td>1290.3</td>
             <td>0</td><td>0.00%</td>
-            <td>705875</td>
+            <td>705806</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAllCandidateProfiles</td><td>15</td>
-            <td>66.9</td><td>94.6</td>
-            <td>133.7</td><td>205.9</td>
+            <td>getAllCandidateProfiles</td><td>25</td>
+            <td>87.2</td><td>151.0</td>
+            <td>272.2</td><td>298.8</td>
             <td>0</td><td>0.00%</td>
-            <td>32252</td>
+            <td>32245</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobTypesByProfession</td><td>15</td>
-            <td>31.0</td><td>61.0</td>
-            <td>64.8</td><td>68.2</td>
+            <td>getJobTypesByProfession</td><td>25</td>
+            <td>30.8</td><td>49.4</td>
+            <td>59.8</td><td>184.4</td>
             <td>0</td><td>0.00%</td>
             <td>1381</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateUserTypeAndRole</td><td>15</td>
-            <td>32.1</td><td>62.6</td>
-            <td>65.6</td><td>66.7</td>
+            <td>updateUserTypeAndRole</td><td>25</td>
+            <td>41.0</td><td>62.8</td>
+            <td>170.0</td><td>221.1</td>
             <td>0</td><td>0.00%</td>
             <td>1181</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobs</td><td>15</td>
-            <td>41.8</td><td>84.4</td>
-            <td>98.3</td><td>98.9</td>
+            <td>getJobs</td><td>25</td>
+            <td>68.5</td><td>194.4</td>
+            <td>276.8</td><td>281.5</td>
             <td>0</td><td>0.00%</td>
             <td>3275</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateJobDocument</td><td>15</td>
-            <td>32.9</td><td>65.2</td>
-            <td>76.3</td><td>88.1</td>
+            <td>updateJobDocument</td><td>25</td>
+            <td>33.8</td><td>53.8</td>
+            <td>72.2</td><td>229.5</td>
             <td>0</td><td>0.00%</td>
             <td>1166</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getSavedJobs</td><td>15</td>
-            <td>39.7</td><td>77.0</td>
-            <td>82.8</td><td>86.2</td>
+            <td>getSavedJobs</td><td>25</td>
+            <td>29.9</td><td>55.8</td>
+            <td>68.2</td><td>78.6</td>
             <td>0</td><td>0.00%</td>
             <td>2174</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>saveJobStatus</td><td>15</td>
-            <td>37.7</td><td>63.0</td>
-            <td>64.2</td><td>66.4</td>
+            <td>saveJobStatus</td><td>25</td>
+            <td>48.8</td><td>84.6</td>
+            <td>209.0</td><td>259.8</td>
             <td>0</td><td>0.00%</td>
             <td>1172</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateWorkflowDetails</td><td>15</td>
-            <td>28.3</td><td>53.0</td>
-            <td>58.5</td><td>61.3</td>
+            <td>getCandidateWorkflowDetails</td><td>25</td>
+            <td>27.9</td><td>54.8</td>
+            <td>60.0</td><td>68.4</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getOrganizationDashboard</td><td>15</td>
-            <td>36.5</td><td>70.2</td>
-            <td>83.1</td><td>87.0</td>
+            <td>getOrganizationDashboard</td><td>25</td>
+            <td>35.7</td><td>51.6</td>
+            <td>76.0</td><td>228.7</td>
             <td>0</td><td>0.00%</td>
             <td>1030</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobHistory</td><td>15</td>
-            <td>69.5</td><td>188.4</td>
-            <td>276.8</td><td>308.2</td>
+            <td>getJobHistory</td><td>25</td>
+            <td>22.0</td><td>38.0</td>
+            <td>56.4</td><td>63.3</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>authenticatedUser</td><td>15</td>
-            <td>28.1</td><td>60.2</td>
-            <td>67.9</td><td>69.6</td>
+            <td>authenticatedUser</td><td>25</td>
+            <td>57.4</td><td>252.0</td>
+            <td>269.2</td><td>272.5</td>
             <td>0</td><td>0.00%</td>
             <td>1493</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getTimesheet</td><td>15</td>
-            <td>27.1</td><td>46.0</td>
-            <td>54.3</td><td>66.1</td>
+            <td>getTimesheet</td><td>25</td>
+            <td>43.4</td><td>81.6</td>
+            <td>222.0</td><td>254.5</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAnonymousToken</td><td>15</td>
-            <td>60.4</td><td>80.4</td>
-            <td>170.3</td><td>316.5</td>
+            <td>getAnonymousToken</td><td>25</td>
+            <td>32.8</td><td>60.2</td>
+            <td>71.8</td><td>104.9</td>
             <td>0</td><td>0.00%</td>
             <td>1644</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getOrCheck</td><td>15</td>
-            <td>34.3</td><td>59.2</td>
-            <td>65.7</td><td>76.3</td>
+            <td>getOrCheck</td><td>25</td>
+            <td>32.8</td><td>46.6</td>
+            <td>59.8</td><td>209.7</td>
             <td>0</td><td>0.00%</td>
             <td>1070</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>increment</td><td>15</td>
-            <td>37.4</td><td>75.6</td>
-            <td>93.2</td><td>95.4</td>
+            <td>increment</td><td>25</td>
+            <td>41.8</td><td>73.4</td>
+            <td>126.6</td><td>238.3</td>
             <td>0</td><td>0.00%</td>
             <td>1053</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>decrement</td><td>15</td>
-            <td>42.5</td><td>82.2</td>
-            <td>84.8</td><td>88.2</td>
+            <td>decrement</td><td>25</td>
+            <td>28.2</td><td>48.2</td>
+            <td>57.0</td><td>63.6</td>
             <td>0</td><td>0.00%</td>
             <td>1053</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getDashboard</td><td>15</td>
-            <td>58.7</td><td>87.8</td>
-            <td>160.6</td><td>290.5</td>
+            <td>getDashboard</td><td>25</td>
+            <td>52.3</td><td>103.4</td>
+            <td>221.0</td><td>266.0</td>
             <td>0</td><td>0.00%</td>
             <td>1129</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCorporateRequests</td><td>15</td>
-            <td>40.3</td><td>76.8</td>
-            <td>84.0</td><td>95.2</td>
+            <td>getCorporateRequests</td><td>25</td>
+            <td>50.2</td><td>101.4</td>
+            <td>115.8</td><td>150.2</td>
             <td>0</td><td>0.00%</td>
             <td>1356</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>addRecentResume</td><td>15</td>
-            <td>33.9</td><td>66.6</td>
-            <td>76.2</td><td>78.4</td>
+            <td>addRecentResume</td><td>25</td>
+            <td>25.8</td><td>57.0</td>
+            <td>76.6</td><td>81.8</td>
             <td>0</td><td>0.00%</td>
             <td>1180</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateOfferJobs</td><td>15</td>
-            <td>52.7</td><td>104.8</td>
-            <td>150.5</td><td>214.9</td>
+            <td>getCandidateOfferJobs</td><td>25</td>
+            <td>36.0</td><td>65.2</td>
+            <td>88.0</td><td>217.7</td>
             <td>0</td><td>0.00%</td>
             <td>1017</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getAllOrganizations</td><td>15</td>
-            <td>42.4</td><td>90.0</td>
-            <td>104.4</td><td>108.9</td>
+            <td>getAllOrganizations</td><td>25</td>
+            <td>60.2</td><td>115.2</td>
+            <td>256.4</td><td>310.3</td>
             <td>0</td><td>0.00%</td>
-            <td>28264</td>
+            <td>28266</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getPreferredOrganization</td><td>15</td>
-            <td>31.9</td><td>64.6</td>
-            <td>75.8</td><td>84.8</td>
+            <td>getPreferredOrganization</td><td>25</td>
+            <td>40.6</td><td>88.2</td>
+            <td>111.4</td><td>252.6</td>
             <td>0</td><td>0.00%</td>
             <td>1402</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobTracking</td><td>15</td>
-            <td>28.8</td><td>60.8</td>
-            <td>74.3</td><td>86.1</td>
+            <td>getJobTracking</td><td>25</td>
+            <td>28.3</td><td>55.2</td>
+            <td>58.0</td><td>89.2</td>
             <td>0</td><td>0.00%</td>
             <td>1006</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getJobProfessions</td><td>15</td>
-            <td>43.9</td><td>69.0</td>
-            <td>71.0</td><td>71.0</td>
+            <td>getJobProfessions</td><td>25</td>
+            <td>40.5</td><td>76.6</td>
+            <td>87.0</td><td>93.3</td>
             <td>0</td><td>0.00%</td>
             <td>1477</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateAadhaarStatus</td><td>15</td>
-            <td>25.9</td><td>46.6</td>
-            <td>49.7</td><td>54.7</td>
+            <td>updateAadhaarStatus</td><td>25</td>
+            <td>34.2</td><td>57.4</td>
+            <td>64.2</td><td>266.4</td>
             <td>0</td><td>0.00%</td>
             <td>1177</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>getCandidateProfile</td><td>15</td>
-            <td>31.0</td><td>50.0</td>
-            <td>53.2</td><td>55.4</td>
+            <td>getCandidateProfile</td><td>25</td>
+            <td>41.8</td><td>62.4</td>
+            <td>66.0</td><td>259.8</td>
             <td>0</td><td>0.00%</td>
             <td>1869</td>
             <td><span class="status-pill status-pass">PASS</span></td>
           </tr>
           <tr>
-            <td>updateCandidateSpecificDetails</td><td>15</td>
-            <td>38.5</td><td>73.8</td>
-            <td>82.4</td><td>92.5</td>
+            <td>updateCandidateSpecificDetails</td><td>25</td>
+            <td>30.3</td><td>67.6</td>
+            <td>76.0</td><td>90.7</td>
             <td>0</td><td>0.00%</td>
             <td>1180</td>
             <td><span class="status-pill status-pass">PASS</span></td>
@@ -1314,7 +1314,7 @@ tbody tr:hover{background:#f8faff}
   </main></div>
 
 <script>
-const D = {"labels":["0s","10s","20s"],"avgResponse":[88.79203539823008,103.66271649954422,38.06792452830189],"minResponse":[18,8,7],"maxResponseOverTime":[2284,2754,1562],"p90OverTime":[144.89999999999998,136.4000000000002,41.900000000000006],"p95OverTime":[255.89999999999986,308.29999999999984,143.89999999999998],"p99OverTime":[642.9200000000028,1486.939999999975,339.3799999999994],"activeThreads":[12,15,8],"latencyOverTime":[83.77138643067846,97.11850501367365,34.51698113207547],"connectOverTime":[2.7448377581120944,0.8404740200546946,0],"receivedRate":[244675.3,1034665.4,431621.7],"sentRate":[635773.3,1169111,227474.7],"hitsPerSecond":[67.8,109.7,26.5],"transactionsPerSecond":[67.8,109.7,26.5],"totalTransactionsPerSecond":[67.8,88.75,68],"transactionAvailable":false,"transactionSeriesLabel":"Request samples/sec (fallback; no Transaction Controller rows in JTL)","responseByRequest":{"labels":["1-102","103-204","205-306","307-408","409-510","511-612","613-714","715-816","817-918","919-1020","1021-1122","1123-1224","1225-1326","1327-1428","1429-1530","1531-1632","1633-1734","1735-1836","1837-1938","1939-2040"],"averages":[77.33333333333333,68.91176470588235,90.79411764705883,83.3529411764706,71.87254901960785,135.83333333333334,82.92156862745098,97.8529411764706,236.04901960784315,92,93,84.01960784313725,110.74509803921569,73.86274509803921,99.94117647058823,65.53921568627452,92.06862745098039,84,39.372549019607845,24.519607843137255],"maxima":[569,316,787,552,591,2284,1947,527,1888,994,2160,246,2754,763,1756,1786,1999,1722,366,265]},"latencyByRequest":{"labels":["1-102","103-204","205-306","307-408","409-510","511-612","613-714","715-816","817-918","919-1020","1021-1122","1123-1224","1225-1326","1327-1428","1429-1530","1531-1632","1633-1734","1735-1836","1837-1938","1939-2040"],"averages":[65.34313725490196,67.55882352941177,84.96078431372548,78.83333333333333,70.13725490196079,130.2941176470588,79.80392156862744,95.03921568627452,210.2058823529412,78.75490196078431,86.54901960784314,80.37254901960785,107.16666666666667,70.15686274509804,97.24509803921569,63.6764705882353,89.22549019607843,80.87254901960785,31.58823529411765,23.225490196078432],"maxima":[564,316,787,552,591,2284,1947,527,1888,994,2160,246,2754,763,1756,1785,1999,1722,260,231]},"distributionLabels":["500-750 ms","0-250 ms","250-500 ms","750-1000 ms","2250-2500 ms","1750-2000 ms","1500-1750 ms","1000-1250 ms","1250-1500 ms","2000-2250 ms","2750-3000 ms"],"distributionValues":[16,1928,69,9,1,7,6,1,1,1,1],"apiNames":["authenticate","getJobInterview","getNtOrganizationSubscriptions","getTemplateById_1","getPreferredCandidate","updatePreferredCandidate","Position","getCandidateMyJobs","getAllCountryDialCodes","getUserStats","getOrganizationSubscriptionHistory","validateNewUser","getNotificationList","updateNotificationStatus","getPlan","getAvailability","archiveAvailability","getSignupCounts","getAllUsers","getAllUsersFiltered","getAllJobs","updateCommunicationStatus","updateUserProfile","getTrashedImages","getCandidateMyJobsCount","getWorkflowDetail","getSavedAddresses","getUserHistory","updateUserEmailAndPhone","getPreference","getCandidateCalendar","searchJobs","getConversation","getCandidateRequests","updateUserDetails","patchJobInterviewStatus","getCandidateWorkflowJobs","getOrganizationPlans","getNtOrganizationSubscriptionLocations","getNtOrganizationSubscriptionDetails","getUserResource","getCandidateWorkflowCount","getCandidateJobs","getInvitesForCandidate","getStatusCount","setPreferredAddress","getJobApplicants","primarySmsCallback","parseResume","getSubscriptionDetails","getArchivedAvailability","getAppliedCandidates","getOrganizationRecentUpdates","addUserMobileDetails","deactivateByMobileId","uploadResumeFile","getJobsWorkflowCount","getRecommendedCandidates","getTimesheetDetails","getDashboardRecommendedJobs","getRecommendedJobs","handleGoogleCallback","handleGoogleCallback-0","handleGoogleCallback-1","getUsersByLocation","getApprovalRequestCount","generateEmailOtp","getByPincode","getBillingDetails","upsertBillingDetails","updateJobStatus","getCandidateRecentUpdates","getFeedback","updateFeedback","getJobTemplates","updateJobTemplate","deactivateJobTemplate","createOrder","getAllProfessions","getResumes","getAvailabilityDates","updateViewStatus","getOrganizationBanner","generatePresignedUrl","generateMobileOtp","getProfessionAndCollegeList","authenticateUser","getOrganizationActionRequired","getTemplateById","patchDeactivateTemplates","getTimesheetSummary","getAllOrganizationTypes","getOrganizations","getNotificationFrequency","updateNotificationFrequency","getOrganizationById","updateOrganizationAssets","search","generateWithAI","getNotificationCount","getJobLocations","getInvitedCandidates","inviteCandidate","getUpcomingInterviews","getDashboardMyJobs","getProfileFields","getResume","extractJobDescription","getAllTemplates","getAllCandidateProfiles","getJobTypesByProfession","updateUserTypeAndRole","getJobs","updateJobDocument","getSavedJobs","saveJobStatus","getCandidateWorkflowDetails","getOrganizationDashboard","getJobHistory","authenticatedUser","getTimesheet","getAnonymousToken","getOrCheck","increment","decrement","getDashboard","getCorporateRequests","addRecentResume","getCandidateOfferJobs","getAllOrganizations","getPreferredOrganization","getJobTracking","getJobProfessions","updateAadhaarStatus","getCandidateProfile","updateCandidateSpecificDetails"],"apiAverageSize":[1970,1781,1072,2311,1399,1182,1497,1006,17243.933333333334,1334,1263,1145,1006,1187,1773,1006,1044,1155,95202.33333333333,1537,1053,1144.4666666666667,1175,18738.2,1045,4615.533333333334,1535,2123,1183,1297,1040,1022,1006,1017,1158,1176,1006,2576,2260,1507,1413,1076,2646,1053,1056,1179.8,1006,1059,1152,1540,2352,1104,1025,1179.4666666666667,1182,1136,1152,18029.866666666665,1006,1341,1804,22413,1095,21318,3756,1080,1170,1082,1376,1191,1166,1025,1216,1171,1856,1173.9333333333334,1175,1191,1381,1006,1026,1175,1304,1422,1170,1175,1164,1086,1527,1184,1102,1246,1177,1116,1145,1782,1183,1438,1662.0666666666666,1028,2384,2181,1187,1059,1006,1234,5474,4985,705875.4,32251.733333333334,1381,1181,3275,1166,2174,1172,1006,1030,1006,1493,1006,1644,1070,1053,1053,1129,1356,1180,1017,28263.866666666665,1402,1006,1477,1177,1869,1180],"apiTotalSize":[29550,26715,16080,34665,20985,17730,22455,15090,258659,20010,18945,17175,15090,17805,26595,15090,15660,17325,1428035,23055,15795,17167,17625,281073,15675,69233,23025,31845,17745,19455,15600,15330,15090,15255,17370,17640,15090,38640,33900,22605,21195,16140,39690,15795,15840,17697,15090,15885,17280,23100,35280,16560,15375,17692,17730,17040,17280,270448,15090,20115,27060,336195,16425,319770,56340,16200,17550,16230,20640,17865,17490,15375,18240,17565,27840,17609,17625,17865,20715,15090,15390,17625,19560,21330,17550,17625,17460,16290,22905,17760,16530,18690,17655,16740,17175,26730,17745,21570,24931,15420,35760,32715,17805,15885,15090,18510,82110,74775,10588131,483776,20715,17715,49125,17490,32610,17580,15090,15450,15090,22395,15090,24660,16050,15795,15795,16935,20340,17700,15255,423958,21030,15090,22155,17655,28035,17700],"methodSource":"JMX sampler metadata"};
+const D = {"labels":["0s","10s","20s","30s"],"avgResponse":[66.97368421052632,72.07639939485628,62.74787775891341,27.609375],"minResponse":[7,6,6,7],"maxResponseOverTime":[1940,2126,2148,305],"p90OverTime":[125.60000000000014,138,105.30000000000007,35.400000000000006],"p95OverTime":[249.19999999999982,270,249,65.99999999999989],"p99OverTime":[648.7600000000002,794.249999999975,541.2000000000007,216.16999999999965],"activeThreads":[11,12,11,2],"latencyOverTime":[63.22248803827751,67.64599092284418,58.4125636672326,24.109375],"connectOverTime":[1.5430622009569377,2.0264750378214824,0.5161290322580645,0],"receivedRate":[564416.4,1064511.4,1130895.2,91507.7],"sentRate":[899142.1,1267991.8,1173915.8,46199],"hitsPerSecond":[83.6,132.2,117.8,6.4],"transactionsPerSecond":[83.6,132.2,117.8,6.4],"totalTransactionsPerSecond":[83.6,107.9,111.2,85],"transactionAvailable":false,"transactionSeriesLabel":"Request samples/sec (fallback; no Transaction Controller rows in JTL)","responseByRequest":{"labels":["1-170","171-340","341-510","511-680","681-850","851-1020","1021-1190","1191-1360","1361-1530","1531-1700","1701-1870","1871-2040","2041-2210","2211-2380","2381-2550","2551-2720","2721-2890","2891-3060","3061-3230","3231-3400"],"averages":[50.15294117647059,59.976470588235294,72.57058823529412,55.51176470588236,100.95882352941176,82.81764705882352,60.22941176470588,66.84117647058824,70.28823529411764,53.54117647058823,82.2235294117647,74.60588235294118,86.18235294117648,52.911764705882355,65.98823529411764,75.6470588235294,58.21176470588235,48.411764705882355,75.82941176470588,42.15294117647059],"maxima":[643,514,1940,1734,1658,1703,534,1610,1449,2126,1753,1521,1456,1989,1867,1583,1730,1528,2148,1659]},"latencyByRequest":{"labels":["1-170","171-340","341-510","511-680","681-850","851-1020","1021-1190","1191-1360","1361-1530","1531-1700","1701-1870","1871-2040","2041-2210","2211-2380","2381-2550","2551-2720","2721-2890","2891-3060","3061-3230","3231-3400"],"averages":[48.811764705882354,57.11176470588235,71.52352941176471,54.14705882352941,89.04705882352941,79.93529411764706,55.39411764705882,64.51176470588236,60.71764705882353,50.858823529411765,80.28823529411764,67.13529411764706,83.44705882352942,50.55882352941177,62.805882352941175,72.11176470588235,52.4,46.21176470588235,67.95882352941176,35.81764705882353],"maxima":[637,513,1940,1733,1658,1703,324,1610,1449,2126,1752,1521,1456,1989,1867,1583,1730,1528,2148,1659]},"distributionLabels":["600-800 ms","0-200 ms","200-400 ms","400-600 ms","1800-2000 ms","1600-1800 ms","1200-1400 ms","1400-1600 ms","1000-1200 ms","2000-2200 ms","800-1000 ms"],"distributionValues":[6,3156,181,26,5,10,1,8,4,2,1],"apiNames":["authenticate","getJobInterview","getNtOrganizationSubscriptions","getTemplateById_1","getPreferredCandidate","updatePreferredCandidate","Position","getCandidateMyJobs","getAllCountryDialCodes","getUserStats","getOrganizationSubscriptionHistory","validateNewUser","getNotificationList","updateNotificationStatus","getPlan","getAvailability","archiveAvailability","getSignupCounts","getAllUsers","getAllUsersFiltered","getAllJobs","updateCommunicationStatus","updateUserProfile","getTrashedImages","getCandidateMyJobsCount","getWorkflowDetail","getSavedAddresses","getUserHistory","updateUserEmailAndPhone","getPreference","getCandidateCalendar","searchJobs","getConversation","getCandidateRequests","updateUserDetails","patchJobInterviewStatus","getCandidateWorkflowJobs","getOrganizationPlans","getNtOrganizationSubscriptionLocations","getNtOrganizationSubscriptionDetails","getUserResource","getCandidateWorkflowCount","getCandidateJobs","getInvitesForCandidate","getStatusCount","setPreferredAddress","getJobApplicants","primarySmsCallback","parseResume","getSubscriptionDetails","getArchivedAvailability","getAppliedCandidates","getOrganizationRecentUpdates","addUserMobileDetails","deactivateByMobileId","uploadResumeFile","getJobsWorkflowCount","getRecommendedCandidates","getTimesheetDetails","getDashboardRecommendedJobs","getRecommendedJobs","handleGoogleCallback","handleGoogleCallback-0","handleGoogleCallback-1","getUsersByLocation","getApprovalRequestCount","generateEmailOtp","getByPincode","getBillingDetails","upsertBillingDetails","updateJobStatus","getCandidateRecentUpdates","getFeedback","updateFeedback","getJobTemplates","updateJobTemplate","deactivateJobTemplate","createOrder","getAllProfessions","getResumes","getAvailabilityDates","updateViewStatus","getOrganizationBanner","generatePresignedUrl","generateMobileOtp","getProfessionAndCollegeList","authenticateUser","getOrganizationActionRequired","getTemplateById","patchDeactivateTemplates","getTimesheetSummary","getAllOrganizationTypes","getOrganizations","getNotificationFrequency","updateNotificationFrequency","getOrganizationById","updateOrganizationAssets","search","generateWithAI","getNotificationCount","getJobLocations","getInvitedCandidates","inviteCandidate","getUpcomingInterviews","getDashboardMyJobs","getProfileFields","getResume","extractJobDescription","getAllTemplates","getAllCandidateProfiles","getJobTypesByProfession","updateUserTypeAndRole","getJobs","updateJobDocument","getSavedJobs","saveJobStatus","getCandidateWorkflowDetails","getOrganizationDashboard","getJobHistory","authenticatedUser","getTimesheet","getAnonymousToken","getOrCheck","increment","decrement","getDashboard","getCorporateRequests","addRecentResume","getCandidateOfferJobs","getAllOrganizations","getPreferredOrganization","getJobTracking","getJobProfessions","updateAadhaarStatus","getCandidateProfile","updateCandidateSpecificDetails"],"apiAverageSize":[1970,1781,1072,2311.28,1399,1182,1497,1006,17239.56,1334,1263,1145,1006,1187,1773,1006,1044,1155,95191.28,1537,1053,1143.88,1175,18738.48,1045,4615.4,1535.04,2123,1183,1297,1040,1022,1006,1017,1158,1176,1006,2576,2260,1507,1413,1076,2646,1053,1056,1180,1006,1059,1152,1540,2352,1104,1025,1182,1182,1136,1152,18029.84,1006,1341,1804,22413,1095,21318,3756,1080,1170,1082,1376,1191,1166,1025,1216,1171,1856,1173.72,1175,1191,1381,1006,1026,1175,1304,1422,1170,1175,1164,1086,1527,1184,1102,1246,1177,1116,1145,1782,1183,1438,1639.64,1028,2384,2181,1187,1059,1006,1234,5474,4985,705806.48,32244.76,1381,1181,3275,1166,2174.28,1172,1006,1030,1006,1493,1006,1644,1070,1053,1053,1129,1356,1180,1017,28265.64,1402,1006,1477,1177,1869,1180],"apiTotalSize":[49250,44525,26800,57782,34975,29550,37425,25150,430989,33350,31575,28625,25150,29675,44325,25150,26100,28875,2379782,38425,26325,28597,29375,468462,26125,115385,38376,53075,29575,32425,26000,25550,25150,25425,28950,29400,25150,64400,56500,37675,35325,26900,66150,26325,26400,29500,25150,26475,28800,38500,58800,27600,25625,29550,29550,28400,28800,450746,25150,33525,45100,560325,27375,532950,93900,27000,29250,27050,34400,29775,29150,25625,30400,29275,46400,29343,29375,29775,34525,25150,25650,29375,32600,35550,29250,29375,29100,27150,38175,29600,27550,31150,29425,27900,28625,44550,29575,35950,40991,25700,59600,54525,29675,26475,25150,30850,136850,124625,17645162,806119,34525,29525,81875,29150,54357,29300,25150,25750,25150,37325,25150,41100,26750,26325,26325,28225,33900,29500,25425,706641,35050,25150,36925,29425,46725,29500],"methodSource":"JMX sampler metadata"};
 const requestSummaryCanvas = document.getElementById("requestSummary");
 if (requestSummaryCanvas) {
   new Chart(requestSummaryCanvas, {
@@ -1322,7 +1322,7 @@ if (requestSummaryCanvas) {
     data: {
       labels: ["FAIL", "PASS"],
       datasets: [{
-        data: [93, 1947],
+        data: [153, 3247],
         backgroundColor: ["#ff6659", "#95cc2f"],
         borderColor: ["#ffffff", "#ffffff"],
         borderWidth: 2
@@ -1333,7 +1333,7 @@ if (requestSummaryCanvas) {
       maintainAspectRatio: false,
       plugins: {
         legend: { position: "right", labels: { boxWidth: 10, padding: 12, font: { size: 11 } } },
-        tooltip: { callbacks: { label: ctx => ctx.label + ": " + ctx.raw.toLocaleString() + " (" + (ctx.raw / 2040 * 100).toFixed(2) + "%)" } }
+        tooltip: { callbacks: { label: ctx => ctx.label + ": " + ctx.raw.toLocaleString() + " (" + (ctx.raw / 3400 * 100).toFixed(2) + "%)" } }
       }
     }
   });
@@ -1358,8 +1358,8 @@ columns("transactions",D.labels,[{label:D.transactionSeriesLabel,data:D.transact
 columns("totalTransactions",D.labels,[{label:D.transactionAvailable?"Cumulative transactions/sec":"Cumulative request samples/sec (fallback)",data:D.totalTransactionsPerSecond,color:"#8064d9"}],"Cumulative samples / second");
 columns("responseScatter",D.responseByRequest.labels,[{label:"Average response",data:D.responseByRequest.averages,color:"#4776e6"},{label:"Maximum response",data:D.responseByRequest.maxima,color:"#df5b68"}],"Response time (ms)");
 columns("latencyScatter",D.latencyByRequest.labels,[{label:"Average latency",data:D.latencyByRequest.averages,color:"#16a085"},{label:"Maximum latency",data:D.latencyByRequest.maxima,color:"#8064d9"}],"Latency (ms)");
-columns("responsePercentiles",["P50","P90","P95","P99"],[{label:"Response time",data:[51.0000,128.0000,267.0500,942.2300],color:"#8064d9"}],"Response time (ms)");
-columns("responseOverview",["Average","Minimum","Maximum"],[{label:"Response time",data:[90.1995,7.0000,2754.0000],color:"#4776e6"}],"Response time (ms)");
+columns("responsePercentiles",["P50","P90","P95","P99"],[{label:"Response time",data:[26.0000,120.0000,257.0500,641.0200],color:"#8064d9"}],"Response time (ms)");
+columns("responseOverview",["Average","Minimum","Maximum"],[{label:"Response time",data:[66.7526,6.0000,2148.0000],color:"#4776e6"}],"Response time (ms)");
 columns("timeThreads",D.labels,[{label:"Active threads",data:D.activeThreads,color:"#e69a45"}],"Active threads");
 columns("distribution",D.distributionLabels,[{label:"Sample count",data:D.distributionValues,color:"#8064d9"}],"Samples");
 columns("apiResponseSize",D.apiNames,[{label:"Average response size",data:D.apiAverageSize,color:"#16a085"}],"Average response size (bytes)",true);
